@@ -1,0 +1,175 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 3760}
+\def\labsection{A01}
+
+\def\labno{2}
+\def\title{Assignment 2: Level Indicator Design}
+
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\scriptsize,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Assignment \labno}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+%  BODY
+% --------------------------------------------------------------------------------
+\section{Level Indicator Design}
+To design a system that is able to monitor the level of water or waste contents within a septic or cistern tank, we have a few things to take into consideration. The system should be able to measure the level of the contents, be able to display the level, and also be able to send the data to a server for remote monitoring given it has a network connection. The design should also take into consideration the environment the system will be in, such as the temperature, humidity, and the presence of water and waste.
+
+\subsection{Sensors}
+To avoid physical contact with the waste, an ultrasonic sensor can be used to measure the level of the tank's contents. These sensors work by emitting high-frequency sound waves and calculating the time it takes for the echo to return, allowing for an accurate measurement of the distance to the contents. Installing a sensor at the top of the tank is ideal, as it minimizes exposure and ensures comprehensive coverage. This approach is suitable for both cisterns and septic tanks, as it requires no physical contact and operates effectively in dark environments, such as inside a septic tank.
+
+The sensor would need to be kept clean of any debris or waste that could interfere with its operation. It would also need to be proofed against the environment it is in, such as being waterproof and resistant to corrosion. The sensor should also be able to operate in a wide range of temperatures and humidity levels.
+
+A limitation of this method is its inability to distinguish between solid or liquid contents and bubbles or foam, which could result in less accurate readings.
+
+\subsection{Microcontroller}
+A microcontroller would be the best choice as this design is relatively simple and does not require a very powerful processor. The microcontroller would need to have the appropriate interfaces to connect with the ultrasonic sensor and the display. It would also need to have enough memory to store the data and the program. The data-flow would be as follows: the ultrasonic sensor would measure the level of the contents and send the data to the microcontroller, which would do any required calculations and then display it on an attached display via another interface.
+
+If remote monitoring is required, the microcontroller would need to have a network interface, such as Wi-Fi or Ethernet, to send the data to a server. The server would then store the data and make it available for viewing through a web interface or an app.
+
+
+\subsection{Power Considerations}
+If the tank is located in an area where there is no power source, and the microcontroller will be powered by a battery, some changes can be made to the design. We can only measure the level of the contents at certain intervals, which can be predetermined by the user. An e-ink display can also be used to reduce power consumption and maintain the display even if the power is turned off.
+
+Alternatively, a design featuring a solar panel could be used to help power the system. The battery could act as an accumulator to store the energy generated by the solar panel and power the system when there is no sunlight.
+
+\subsection{Alternative Designs}
+Alternatively, we could use a different type of sensor, or combine multiple sensors, to measure the level of the contents. For example, a pressure sensor could be used to detect the pressure at the bottom of the tank, which directly corresponds to the level of the contents. This method would be more accurate than an ultrasonic sensor because it can distinguish between solids, liquids, and foam. However, since the sensor would need to be in direct contact with the contents, it could increase the risk of failure due to wear, contamination, or damage. Combining this with an ultrasonic sensor could provide a more accurate reading as we can cross-reference the data from both sensors.
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
