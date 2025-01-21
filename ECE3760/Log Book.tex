@@ -1,0 +1,180 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 3760}
+\def\labsection{1}
+\def\labno{1}
+\def\title{Log Book}
+
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\small,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\newcommand{\logbookentry}[2]{
+    \subsection*{#1 \hfill \textit{#2}} 
+}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Logbook}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+\section{Log Entries}
+
+\logbookentry{Lab 1 Entry}{January 20, 2025}
+Recieved the board, soldered pins to the board and ensured that the board was working and no short circuits were present.
+
+Installed platformio on VSCode and ensured the extension was working correctly by running a simple serial print program on the board.
+
+The code is as follows:
+
+\begin{lstlisting}[language=C++, caption=Hello World Code]
+#include <Arduino.h>
+
+void setup() {
+    Serial.begin(9600);
+    while(!Serial); // Wait for serial connection
+}
+
+void loop() {
+    Serial.println("Hello, World!");
+    delay(1000);
+}
+\end{lstlisting}
+
+With an output of "Hello, World!" every second to the serial monitor.
+
+\logbookentry{Design Ideas}{January 20, 2025}
+During the lab, discussed some ideas for the project. Talked about the basic requirements, what potential ways we can meet the requirements. Need to do more research on how curling actually works to get a better idea of what someone would need to comminicate with their team members to ensure a successful game.
+
+Currently thinking of the skip having a device that can communicate with the two sweepers, having a speed up and slow down button for the sweepers to adjust their speed. The skip would also have a button to indicate when to stop sweeping. On the sweepers side, they would have an LED or a speedometer esque led display to show them how fast they should be sweeping. Since different players might need to sweep at different rates, need to differentiate somehow between the two sweepers. Maybe have two of the same device, but with different colored LEDs or something to indicate which sweeper the skip is talking to. For example, a left and right sweeper device, that connects to the respective sweeper. 
+
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
