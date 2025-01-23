@@ -176,7 +176,17 @@ Equivalently as a function:
 
     \item Is it linear?
     
-    The systen is linear as it satisfies both the properties of additivity and homogeneity. The system is additive as the output for $n = 0$ is 5, for $n = 1$ is 10, and for $n = 2$ is 15. The system is homogeneous as the output is a scalar multiple of the input.
+    The systen is not linear as it does not follow the properties of homogeneous and additive. For example if we give it an input scaled by $\alpha$, it is not the same as if we scaled the output by $\alpha$.
+
+    Let the scaling factor be $\alpha = 2$:
+    \begin{align*}
+        y[1 \times \alpha] = y[2] = 15 \neq 2 \times y[1] = 2 \times 10 = 20
+    \end{align*}
+
+    It also does not follow the additive property:
+    \begin{align*}
+        y[0 + 1] = y[1] = 10 \neq y[0] + y[1] = 5 + 10 = 15
+    \end{align*}
 
     \item Is it time invariant?
     
@@ -184,7 +194,7 @@ Equivalently as a function:
 
     \item Is it causal?
 
-    No, the system only provides an output for $n = 0, 1, 2$. It does not rely on future values of the input signal.
+    Yes, the system only depends on the current input value and not future values.
 
     \item Is it stable?
 
@@ -192,7 +202,7 @@ Equivalently as a function:
 
     \item Is it discrete?
 
-    Yes, the system is discrete as the input and output are discrete values.
+    Yes, the system is discrete as the input and output are discrete values. We only have the system defined for $n = 0, 1, 2$.
 
     \item Is it memoryless?
 

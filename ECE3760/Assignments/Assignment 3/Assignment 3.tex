@@ -37,7 +37,7 @@
 \def\labsection{A01}
 
 \def\labno{1}
-\def\title{Assignment 5: LTI Assignment}
+\def\title{Assignment 3: Wordle Guess Distribution}
 
 % -- Styling for code snippets --
 \lstset{
@@ -167,25 +167,23 @@ Therefore, the mean associated with the wordle guess distribution is 3.703.
 
 \textbf{What is the variance or standard deviation of the guess distribution?}
 
-The variance is calculated as follows:
+The variance and standard deviation is calculated as follows:
 \begin{align*}
     \text{Var}(X) & = E[X^2] - E[X]^2 \\
     & = \frac{2^2 \times 17 + 3^2 \times 191 + 4^2 \times 172 + 5^2 \times 58 + 6^2 \times 16}{454} - 3.703^2 \\
-    &= 0.7508
+    \text{Var}(X) &= \boxed{0.751} \\
+    \sigma &= \sqrt{0.7508} = \boxed{0.866}
 \end{align*}
-
-Therefore, the variance of the guess distribution is 0.748. The standard deviation is the square root of the variance, which is $\sqrt{0.7508} = 0.866$.
 
 \textbf{What is the variance of the mean of the distribution? Or similarly, what is the standard error of the mean.}
 
-The variance of the mean is calculated as follows:
+The variance of the mean and standard error of the mean is calculated as follows:
 \begin{align*}
     \text{Var}(\bar{X}) & = \frac{\text{Var}(X)}{n} \\
     & = \frac{0.7508}{454} \\
-    & = 0.002
+    & = \boxed{0.00165} \\
+    \text{SEM} &= \sqrt{0.00165} = \boxed{0.0407}
 \end{align*}
-
-The standard error of the mean is the square root of the variance of the mean, which is $\sqrt{0.002} = 0.041$.
 
 % --------------------------------------------------------------------------------
 % END BODY
