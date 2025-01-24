@@ -1,0 +1,376 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 4260}
+\def\labsection{A01}
+
+\def\labno{1}
+\def\title{Assignment 1: Probability Assignment}
+
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\scriptsize,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Assignment\labno}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+
+\section{Problem 1}
+
+\begin{enumerate}
+    \item Find the Euler representation of the complex numbers $z_5, z_6$ and $z_7$.
+
+    \begin{itemize}
+        \item $z_5 = \frac{z_1}{z^*_2}$
+        \begin{align*}
+            z_5 &= \frac{z_1}{z^*_2} \\
+            &= \frac{\frac{5}{2} + \frac{5\sqrt{3}}{2}j}{\sqrt{3}+j} \\
+            &= \frac{5+5\sqrt{3}j}{2} \cdot \frac{1}{\sqrt{3}+j} \cdot \frac{\sqrt{3}-j}{\sqrt{3}-j} \\
+            &= \frac{(5+5\sqrt{3}j)\cdot(\sqrt{3}-j)}{2(\sqrt{3}+j)(\sqrt{3}-j)} \\
+            &= \frac{5\sqrt{3} - 5j + 15 - 5j}{2(3+1)} \\
+            &= \frac{15 + 5\sqrt{3} - 10j}{8} \\
+        \end{align*}
+        To convert to Euler form, we need to find the magnitude and angle of the complex number.
+        \begin{align*}
+            |z_5| &= \frac{\sqrt{(15+5\sqrt{3})^2 + (-10)^2}}{8^2} \\
+            &= \frac{\sqrt{225 + 150\sqrt{3} + 75 + 100}}{64} \\
+            &= \frac{\sqrt{500 + 150\sqrt{3}}}{64} \\
+        \end{align*}
+        The angle is given by:
+        \begin{align*}
+            \theta &= \tan^{-1}\left(\frac{-10}{15+5\sqrt{3}}\right) \\
+            &= \tan^{-1}\left(\frac{-10}{15+5\sqrt{3}}\right) \\
+        \end{align*}
+        Therefore, the Euler representation of $z_5$ is:
+        \begin{align*}
+            z_5 &= a e^{j\theta} \\
+            &= \frac{\sqrt{500 + 150\sqrt{3}}}{64} e^{j\tan^{-1}\left(\frac{-10}{15+5\sqrt{3}}\right)} \\
+        \end{align*}
+
+        \item $z_6 = \frac{z^*_3}{z_4}$
+        \begin{align*}
+            z_6 &= \frac{z^*_3}{z_4} \\
+            z_6 &= \frac{1+e^{jn1\varphi}}{1-e^{j\varphi}} \\
+            &= \frac{1+e^{j\pi\varphi}}{1-e^{j\varphi}} \cdot \frac{1-e^{-j\varphi}}{1-e^{-j\varphi}} \\
+        \end{align*}
+    \end{itemize}
+
+    \item Find the real and imaginary parts of $z^*_7$.
+\end{enumerate}
+
+\section{Problem 2}
+
+\begin{itemize}
+    \item $g_1(t) = g(-t)$
+    \item $g_2(t) = g_1(t-1) + g(t-1) = g(-t+1) + g(t-1)$
+    \item $g_3(t) = g_1(t+1) + g(t-1) = g(-t-1) + g(t-1)$
+    \item $g_4(t) = g_1(t+1/2) + g(t-1/2) = g(-t-1/2) + g(t-1/2)$
+    \item $g_5(t) = \frac{3}{2}g(\frac{t}{2}-1)$
+\end{itemize}
+
+\section{Problem 3}
+
+Sketching 
+% TODO: Finish this
+
+\section{Problem 4}
+Since the signal is periodic, we can find the average power of the entire signal by integrating over 1 period and dividing by the period. The average power is given by:
+\[
+    P_g(t) = \frac{1}{T} \int_{T} |g(t)|^2 dt
+\]
+
+The period of this signal is $T = 4$ and we can integrate from -2 to 2.
+
+\begin{align*}
+    P_g(t) &= \frac{1}{4} \int_{-2}^{2} |g(t)|^2 dt \\
+    &= \frac{1}{4} \int_{-2}^{2} (t^3)^2 dt \\
+    &= \frac{1}{4} \int_{-2}^{2} t^6 dt \\
+    &= \frac{1}{4} \left[\frac{t^7}{7}\right]_{-2}^{2} \\
+    &= \frac{1}{4} \left[\frac{128}{7} - \frac{-128}{7}\right] \\
+    &= \frac{1}{4} \left[\frac{256}{7}\right] \\
+    &= \boxed{\frac{64}{7}} \\
+\end{align*}
+
+Therefore, the average power of the signal is $\frac{64}{7}$.
+
+\section{Problem 5}
+\begin{enumerate}[label=5.\arabic*]
+    \item Show that $\mathcal{H}[.]$ is linear.
+    To show that $\mathcal{H}[.]$ is linear, we need to show that it satisfies both the additivity and homogeneity properties.
+
+    Additivity:
+
+    Let $x_1(t)$ and $x_2(t)$ be two signals. Then, with $h(t)$ a fixed signal, we have:
+
+    \begin{align*}
+        x_1(t) \rightarrow y_1(t) &= \mathcal{H}[x_1(t)] = x_1(t) h(t) \\
+        x_2(t) \rightarrow y_2(t) &= \mathcal{H}[x_2(t)] = x_2(t) h(t) \\
+        (x_1(t) + x_2(t)) \rightarrow y_3(t) &= \mathcal{H}[x_1(t) + x_2(t)] = (x_1(t) + x_2(t)) h(t) \\
+        &= x1(t)h(t) + x2(t)h(t) = y1(t) + y2(t) \\
+    \end{align*}
+
+    Thus $\mathcal{H}[.]$ satisfies the additivity property.
+
+    Homogeneity:
+
+    Let $x(t)$ be a signal and $a$ be a scalar. Then, with $h(t)$ a fixed signal, we have:
+
+    \begin{align*}
+        x(t) \rightarrow y_1(t) &= \mathcal{H}[x(t)] = x(t) h(t) \\
+        ax(t) \rightarrow y_2(t) &= \mathcal{H}[ax(t)] = ax(t) h(t) \\
+        &= a(x(t)h(t)) = ay_1(t) \\
+    \end{align*}
+
+    Thus $\mathcal{H}[.]$ satisfies the homogeneity property and is linear.
+
+    \item Show that if $\mathcal{H}[.]$ is time-invariant, then h(t) must be a constant, i.e. $h(t) = c, \forall t, c \in \mathbb{R}$.
+    
+    A system is time-invariant if a shift in the input signal results in a corresponding shift in the output signal. Let $x(t)$ be a signal.
+
+    \begin{align*}
+        x(t-t_0) \rightarrow y_1(t) &= \mathcal{H}[x(t-t_0)] = x(t-t_0) h(t) \\
+        y_2(t-t_0) &= x(t-t_0) h(t-t_0) \\
+    \end{align*}
+
+    Then, $y_2(t-t_0) = y_1(t)$ if, and only if, $h(t) = c$ for some constant $c$.
+
+    If $h(t) = c$, then $y_1(t) = cx(t-t_0)$ and $y_2(t-t_0) = cx(t-t_0)$. Therefore, the system is time-invariant if $h(t) = c$.
+
+    \item Suppose that the switch is closed for $-1/2 \leq t \leq 1/2$. Using 5.1, show that this is a linear system.
+
+    The new system is given by:
+    \[
+       \mathcal{H}[x(t)] =\begin{cases}
+        x(t) & \text{if } -\frac{1}{2} \leq t \leq \frac{1}{2} \\
+        0 & \text{otherwise}
+        \end{cases}
+    \]
+
+    Let $x_1(t)$ and $x_2(t)$ be two signals. Then we have:
+
+    \begin{align*}
+        \mathcal{H}[x_1(t) + x_2(t)] &= \begin{cases}
+            x_1(t) + x_2(t) & \text{if } -\frac{1}{2} \leq t \leq \frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        &= \begin{cases}
+            x_1(t) & \text{if } -\frac{1}{2} \leq t \leq \frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases} + \begin{cases}
+            x_2(t) & \text{if } -\frac{1}{2} \leq t \leq \frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        &= \mathcal{H}[x_1(t)] + \mathcal{H}[x_2(t)]
+    \end{align*}
+
+    And:
+
+    \begin{align*}
+        \mathcal{H}[ax(t)] &= \begin{cases}
+            ax(t) & \text{if } -\frac{1}{2} \leq t \leq \frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        &= a\begin{cases}
+            x(t) & \text{if } -\frac{1}{2} \leq t \leq \frac{1}{2} \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        &= a\mathcal{H}[x(t)]
+    \end{align*}
+
+    Thus the system satisfies the additivity and homogeneity properties and is linear.
+
+    \item Suppose that the switch is turned on and off at various time intervals. Is the system still linear any why? Is it time-invariant and why?
+
+    We can represent the new system as:
+    \[
+        \mathcal{H}[x(t)] =\begin{cases}
+        x(t) & \text{if } t \in \bigcup_{i=1}^{n} [a_i, b_i] \\
+        0 & \text{otherwise}
+        \end{cases}
+    \]
+
+    We can show that it is linear as it follows both additivity and homogeneity:
+    \begin{align*}
+        \mathcal{H}[ax_1(t) +bx_2(t)] &= \begin{cases}
+            ax_1(t) + bx_2(t) & \text{if } t \in \bigcup_{i=1}^{n} [a_i, b_i] \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        &= a\begin{cases}
+            x_1(t) & \text{if } t \in \bigcup_{i=1}^{n} [a_i, b_i] \\
+            0 & \text{otherwise}
+        \end{cases} + b\begin{cases}
+            x_2(t) & \text{if } t \in \bigcup_{i=1}^{n} [a_i, b_i] \\
+            0 & \text{otherwise}
+        \end{cases} \\
+        &= a\mathcal{H}[x_1(t)] + b\mathcal{H}[x_2(t)]
+    \end{align*}
+
+    It is not time-invariant as the output signal will change depending on the time intervals the switch is on or off. A delay in the input signal will not result in a corresponding delay in the output signal.
+
+    \item Suppose that the switch is turned on at $t=0$ and stays on forever. Is the system now linear and why? Is it time-invariant and why?
+
+    We can define the new system as:
+    \begin{align*}
+        y(t) = \mathcal{H}[x(t)] &= u(t)x(t) \\
+        u(t) &= \begin{cases}
+            1 & \text{if } t \geq 0 \\
+            0 & \text{otherwise}
+        \end{cases}
+    \end{align*}
+
+    The system is linear as it satisfies both additivity and homogeneity:
+    \begin{align*}
+        y(ax_1(t) + bx_2(t)) = \mathcal{H}[ax_1(t) + bx_2(t)] &= u(t)(ax_1(t) + bx_2(t)) \\
+        &= au(t)x_1(t) + bu(t)x_2(t) \\
+        &= a\mathcal{H}[x_1(t)] + b\mathcal{H}[x_2(t)] \\
+        &= ay_1(t) + by_2(t)
+    \end{align*}
+
+    It is not time-invariant and we can show this by considering a delay in the input signal:
+    \begin{align*}
+        x(t-t_0) \rightarrow y_1(t) &= u(t)x(t-t_0) \\
+        y_2(t-t_0) &= u(t-t_0)x(t-t_0) \\
+        &\neq y_1(t)
+    \end{align*}
+
+    Therefore, since a delay in the input does not lead to the same result as a delay in the output, the system is not time-invariant.
+
+\end{enumerate}
+
+
+
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
