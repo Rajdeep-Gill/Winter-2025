@@ -32,10 +32,10 @@
 
 % -- Custom Variables --
 \def\me{Rajdeep Gill 7934493}
-\def\course{COURSE CODE}
-\def\labsection{SECTION}
-\def\labno{LABNO}
-\def\title{TITLE}
+\def\course{ECE 3700}
+\def\labsection{B01}
+\def\labno{1}
+\def\title{Wireshark Lab}
 
 % -- Styling for code snippets --
 \lstset{
@@ -128,8 +128,6 @@
 % END TITLE
 % --------------------------------------------------------------------------------
 
-\newpage
-
 \tableofcontents
 
 \vspace{1cm}
@@ -186,48 +184,145 @@
 \section{Wireshark Lab: HTTP}
 
 \begin{enumerate}
-    \item The browser is running HTTP version 1.1 and so is the server. This can be deduced from the GET and OK requests both having HTTP/1.1 in the info column.
-    \item Todo
-    \item The IP address of my computer is 140.193.68.100 and the gaia.cs.umass.edu server is 128.119.245.12. This can be seen in the GET request and OK response.
-    \item The status code returned by the server is 200. This can be seen in the info column of the OK request.
-    \item The file was last modified at: . This can be seen in OK response from the server in the Hypertext Transfer Protocol section.
-    \item 576 bytes of content was returned to the browser, and can be seen in the frame section of the GET response.
-    \item perhaps
-\end{enumerate}
+    \item The browser is running HTTP version 1.1 and so is the server. This can be deduced from the GET and OK requests both having HTTP/1.1 in the info column. As seen in \autoref{fig:p2_1}.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.8\textwidth]{p2_1}
+        \caption{HTTP version}
+        \label{fig:p2_1}
+    \end{figure}
+    \item The browser indicates it accepts en-US. As seen in \autoref{fig:p2_2}.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.35\textwidth]{p2_2}
+        \caption{Accepted languages}
+        \label{fig:p2_2}
+    \end{figure}
+    \newpage
+    \item The IP address of my computer is 192.168.2.10 and the gaia.cs.umass.edu server is 128.119.245.12. This can be seen in the GET request and OK response. The source of the GET request is my computer and the destination is the server, vice-versa for the OK response. As seen in \autoref{fig:p2_3}.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p2_3}
+        \caption{IP addresses}
+        \label{fig:p2_3}
+    \end{figure}
+    \item The status code returned by the server is 200. This can be seen in the info column of the OK request, or the Hypertext Transfer Protocol section. As seen in \autoref{fig:p2_4}.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p2_4}
+        \caption{Status code}
+        \label{fig:p2_4}
+    \end{figure}
+    \item The file was last modified at: January 24, 2025 at 6:59:01 GMT. This can be seen in OK response from the server in the Hypertext Transfer Protocol section. As seen in \autoref{fig:p2_5}.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p2_5}
+        \caption{Last modified date}
+        \label{fig:p2_5}
+    \end{figure}
+    \item 128 bytes of content was returned to the browser, and can be seen in the Content-Length field in the OK response. As seen in \autoref{fig:p2_6}.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.4\textwidth]{p2_6}
+        \caption{Content length}
+        \label{fig:p2_6}
+    \end{figure}
 
+    \item The headings in the two windows are the same.
+\end{enumerate}
 
 \section{The HTTP CONDITIONAL GET/response interaction}
 \begin{enumerate}
     \setcounter{enumi}{7}
     \item The first HTTP GET request does not have an If-Modified-Since header. 
-    \item The server does return the contents of the file as we can see the content length of is 371.
+    \item The server does explicitly return the contents of the file as we can see the text in the response to the first GET. It is 371 bytes and can be seen in the Hypertext Transfer Protocol section of the response.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p3_1}
+        \caption{First HTTP GET request}
+        \label{fig:p3_1}
+    \end{figure}
     \item Inspecting the second HTTP GET request, we do see an If-Modified-Since header. The info followed by the header is ``If-Modified-Since: Tue, 23 Sep 2003 05:35:00 GMT$\backslash$r$\backslash$n''. This can be seen in the Hypertext Transfer Protocol section of the GET request.
-    \item The HTTP status code of is 304 with a response phrase of Not Modified. The server did not explicitly return the contents of the file as the browser already had the file cached. There is also no content length in the response.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p3_2}
+        \caption{Second HTTP GET request}
+        \label{fig:p3_2}
+    \end{figure}
+    \item The HTTP status code of is 304 with a response phrase of Not Modified. The server did not explicitly return the contents of the file as the browser already had the file cached. There is also no content length in the response 
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p3_3}
+        \caption{HTTP response}
+        \label{fig:p3_3}
+    \end{figure}
 \end{enumerate}
 
 \section{Retrieving Long Documents}
 \begin{enumerate}
     \setcounter{enumi}{11}
-    \item 1 HTTP GET request messages were sent by the browser. 
-    \item 5 TCP segments were needed to carry the single HTTP response message.
+    \item One HTTP GET request was sent by the browser. 
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p4_4}
+        \caption{HTTP GET request}
+        \label{fig:p4_0}
+    \end{figure}
+    \item Four TCP segments were needed to carry the single HTTP response message. In the response from the server, there is an entry stating 4 reassembled TCP segments.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p4_1}
+        \caption{Reassembled TCP segments}
+        \label{fig:p4_1}
+    \end{figure}
     \item The status code and phrase associated with the response to the HTTP GET request is 200 OK.
-    \item There are 3 packets with status lines stating a continuation. 
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p4_2}
+        \caption{Status code and phrase}
+        \label{fig:p4_2}
+    \end{figure}
+    \item There are three packets with status lines stating a continuation.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p4_3}
+        \caption{Continuation packets}
+        \label{fig:p4_3}
+    \end{figure}
 \end{enumerate}
 
 \section{HTML Documents with Embedded Objects}
 
 \begin{enumerate}
     \setcounter{enumi}{15}
-    \item 3 HTTP GET request messages were sent by the browser. One for the html and the other two for the image. The internet address of the first request was: 128.119.245.12, the second request was: 165.193.123.218 and the third request was: 134.241.6.82.
-    \item The two images were done in parallel as the browser sent the request for the two images before any of the responses were received. In the packet listing window we see that the requests were both made before any of the responses were received.
+    \item 3 HTTP GET request messages were sent by the browser. One for the html and the other two for the image. The internet address of the first and second requests was: 128.119.245.12, and the third request was: 178.79.137.164.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p5_1}
+        \caption{HTTP GET requests}
+        \label{fig:p5_1}
+    \end{figure}
+    \item The requests for images are done in parallel. However in the packet capture the requests are done sequentially. The first request is for the html file, then we get an OK response. Then the browser sends a request for the first image, then we get an OK response. Then the browser sends a request for the second image, then we get an OK response. This can be seen in \autoref{fig:p5_1}. This could be due to the second image being larger than the first image, we are also getting a 301 response for the second image which could be causing the delay. In this case it seems the requests are done sequentially, but in a real world scenario the requests would be done in parallel.
 \end{enumerate}
 
 \section{HTTP Authentication}
 
 \begin{enumerate}
     \setcounter{enumi}{17}
-    \item In the initial HTTP GET request, the server responseds with a 401 code and a message of Authorization Required. 
+    \item In the initial HTTP GET request, the server responds with a 401 code and a message of Unauthorized. 
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p6_1}
+        \caption{Initial HTTP GET request}
+        \label{fig:p6_1}
+    \end{figure}
     \item The new field in the second HTTP GET request is the Authorization field. It is a basic authentication field with the value encoded in base64.
+    \begin{figure}[ht!]
+        \centering
+        \includegraphics[width=0.6\textwidth]{p6_2}
+        \caption{Second HTTP GET request}
+        \label{fig:p6_2}
+    \end{figure}
 \end{enumerate}
 
 \section{Additional Questions}
@@ -238,7 +333,7 @@
     \item When a file exceeds the payload size of a single packet, the file is split into multiple TCP segments and are sent individually. The segments are then reassembled at the destination.
     \item The components of the HTTP status line are the status code and the status phrase.
     \item The encoding method used in HTTP authentication is base64.
-    \item Basic authentication is not secure as base64 can be easily decoded, allowing the information in the header to be read. If it contains sensitive information, it can be easily stolen.l
+    \item Basic authentication is not secure as base64 can be easily decoded, allowing the information in the header to be read. If it contains sensitive information, it can be easily stolen. As well as, base64 is not an encryption method, it is an encoding method.
 \end{enumerate}
 
 % --------------------------------------------------------------------------------
