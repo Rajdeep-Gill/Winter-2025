@@ -36,7 +36,7 @@
 \def\course{ECE 3760}
 \def\labsection{A01}
 
-\def\labno{1}
+\def\labno{5}
 \def\title{Assignment 5: LTI Assignment}
 
 % -- Styling for code snippets --
@@ -137,7 +137,7 @@
 \newpage
 
 \pagestyle{fancy}
-\fancyhead[L]{\large Assignment\labno}
+\fancyhead[L]{\large Assignment \labno}
 \fancyhead[R]{\large \me}
 
 \fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
@@ -180,7 +180,7 @@ Equivalently as a function:
 
     Let the scaling factor be $\alpha = 2$:
     \begin{align*}
-        y[1 \times \alpha] = y[2] = 15 \neq 2 \times y[1] = 2 \times 10 = 20
+        y[1 \times \alpha] = y[2] = 15 \neq \alpha \times y[1] = 2 \times 10 = 20
     \end{align*}
 
     It also does not follow the additive property:
@@ -198,7 +198,7 @@ Equivalently as a function:
 
     \item Is it stable?
 
-    Yes, the system is stable as the output values are bounded for the 3 input values.
+    Yes, the system is stable as the output values are bounded between $[0, 15]$ for the 3 input values.
 
     \item Is it discrete?
 
