@@ -1,0 +1,29 @@
+#game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    margin: 50px;
+    width: 600px;
+    height: 600px;
+}
+#game-board > * {
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border: 2px solid #333;
+}
+
+.cell {
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    font-size: 96px;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    place-items: center;
+}
