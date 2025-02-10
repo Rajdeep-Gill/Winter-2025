@@ -1,0 +1,208 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 3760}
+\def\labsection{A01}
+
+\def\labno{}
+\def\title{Specifications Document}
+
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\scriptsize,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+
+\vspace{1cm}
+\newpage
+
+
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+
+\section{Introduction}
+\subsection{Project Overview}
+Curling requires effective communication between the skip and sweepers to adjust sweeping intensity and direction. Deaf curlers face challenges in receiving real-time instructions since they cannot hear the skip's verbal cues. This project aims to develop a technology solution that enables deaf sweepers to receive instructions efficiently while maintaining focus on the ice.
+
+\section{Specifications}
+Given the project overview, this section will discuss what the device should be able to do, the goals of the project, and the constraints that the device must adhere to.
+\subsection{Functional Requirements}
+The device should at minimum meet the following functional requirements:
+\begin{itemize}
+    \item The sweepers should be able to receive real-time sweeping instructions from the skip.
+    \item The sweepers should be able to quickly interpret the instructions without looking away from the ice for prolonged periods.
+    \item The device should provide immediate feedback on received instructions.
+    \item The system should be adaptable to various curling environments (e.g., different lighting conditions, distances, and angles).
+    \item The solution should be easy to use.
+    \item The system should have minimal latency in transmitting signals to ensure real-time response
+\end{itemize}
+
+With these requirments in mind, the curlers should be able to communicate effectively with the skip and adjust their sweeping accordingly. 
+
+\subsection{Objectives}
+The primary objectives of our design for the device are to create a lightweight, power-efficient, and easy-to-use device. It should be able to withstand the harsh environment of a curling rink and be cost-effective to produce. The device should also be designed to be as unobtrusive as possible, so it does not interfere with the sweepers' movements.
+\begin{itemize}
+    \item A minimum battery life that lasts the entire duration of a curling game. Curlers should be able to use the device for the entire game without needing to recharge the battery. If the battery life is not sufficient, the battery should be easily swappable.
+    \item The sweeper should be able to relay messages in almost real-time using this device. These messages will be interpretted by the sweepers according to visual cues on the device itself. This visual indiciation can be implemented with a series of LEDs that light up in different patterns to indicate different instructions.
+    \item The curlers should not need to worry about the device breaking during a game due to some rough handling, or the temperature of the rink. The device should be designed to be durable and withstand the conditions of a curling game. An option is to design a 3D printed case to house the device, attached with a lanyard that can be worn around the neck or wrist. Another option is to design a case and attachment to attach it to the broom at different heights according to the user's preference.
+\end{itemize}
+
+\subsection{Constraints}
+
+The device must adhere to a few constraints to ensure it is effective and safe for use in a curling game. Given the few number of deaf curlers, the device should be cost-effective to produce. The device should also be lightweight and not obstruct the sweepers' movements. It should also be designed in such a way it does not break any curling rules.
+
+\subsection{Stakeholders}
+The stakeholders for this project are the deaf curlers who will be using the device. The device should be designed with their needs in mind, and should feel like an extension of the game. Spectators may also be considered stakeholders, and as such, the device should feel as a part of the game, and not as a distraction.
+
+\section{Design}
+
+\subsection{System Overview}
+The design of the device will consist of a transmitting unit and a number of receiving units for the sweepers. An ESP-32 board will be used and communication will be done via ESP-Now. The transmitting unit, held by the skip, will send the same message to all the receiving units. The messages will include the following:
+\begin{itemize}
+    \item Sweep Hard
+    \item Curl left
+    \item Curl right
+    \item Stop
+\end{itemize}
+
+With these messages, the sweepers will be able to quickly interpret the instructions and adjust their sweeping accordingly. By giving both the sweepers the same instructions, they will be able to work together more effectively.
+
+An LED ring will be used to indicate the instructions. Lighting the left half of the ring will indicate to the sweepers to curl left, and lighting the right half will indicate to curl right. Lighting the entire ring will indicate to sweep hard. Using colors to indicate will be an accessory feature, as the sweepers will be able to interpret the instructions based on the position of the lights.
+
+The skip's device will have 4 buttons, one for each instruction and will also contain the same LED ring, so the skip can see what instructions are being sent. 
+
+For example, if the skip would like the stone to curl left, they would press the curl left button on their device. The LED ring on the skip's device will light up on the left side, and the LED rings on both the sweepers' devices will also light up on the left side. The sweepers will then adjust their sweeping accordingly.
+
+\subsection{Anticipated Challenges}
+Some challenges we see this design facing early on include battery life, and communication range. If ESP-Now is not able to sufficiently communicate between the skip and the sweepers over the required distance, other options may need to be considered. With the battery life, keeping the LEDs on for the duration of the game may drain the battery quickly. Plus the device will also be communicating which may also drain the battery.
+
+To help combat these challenges, we will look into keeping the LEDs on for short periods of time each time a message is sent, instead of always having it on. We will also be testing the communication range of the ESP-32 boards, with and without their cases, to see if the range is sufficient for the curling rink.
+
+%--------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
