@@ -1,0 +1,333 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 4830}
+\def\labsection{B03}
+\def\labno{2}
+\def\title{Lab 2}
+
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\small,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+\tableofcontents
+
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Lab \labno}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+
+\section{Problem 1}
+
+Given system, we can find the individual impulse responses and then sum them to find the impulse response of the entire system. We only wish to find the first three samples in time, that is $h(0)$, $h(1)$, and $h(2)$.
+
+We have that $y_1(n) - \frac{1}{2}y_1(n-1) = 2x(n)$, and $h_2(n) = \frac{1}{4^n}u(n)$.
+
+The impulse response of the first system can be found by the following:
+
+\begin{align*}
+    h_1(n) - \frac{1}{2}h_1(n-1) &= 2\delta(n) \\
+    h(n) &= A_0\delta(n) + y_c(n)u(n)
+\end{align*}
+We know that $A_0 = \frac{0}{1/2} = 0$, and $y_c(n)$ is the characteristic equation.
+
+That is:
+\begin{align*}
+    \lambda - \frac{1}{2} &= 0 \\
+    \implies \lambda &= \frac{1}{2} \\
+    y_c(n) &= A\left(\frac{1}{2}\right)^n
+\end{align*}
+
+We know that:
+\begin{align*}
+    n=0: h_1(0) - \frac{1}{2}h_1(-1) &= 2\delta(0) \\
+    h_1(0) &= 2 \\
+\end{align*}
+
+Plugging this in,
+\begin{align*}
+    h_1(0) &= A\left(\frac{1}{2}\right)^0 = 2 \\
+    A &= 2 \\
+    y_c(n) &= 2\left(\frac{1}{2}\right)^n
+\end{align*}
+
+We know that $h(n) = h_1(n) + h_2(n)$.
+
+For $h_1(n)$, the first 3 samples are:
+\begin{align*}
+    n=0: h_1(0) &= 2 \\
+    n=1: h_1(1) &= 2\left(\frac{1}{2}\right)^1 = 1 \\
+    n=2: h_1(2) &= 2\left(\frac{1}{2}\right)^2 = 0.5
+\end{align*}
+
+Brute forcing this result:
+\begin{align*}
+    n=0: h(0) - \frac{1}{2}h(-1) &= 2\delta(0) \\
+    h(0) &= 2 \\
+    n=1: h(1) - \frac{1}{2}h(0) &= 2\delta(1) \\
+    h(1) &= 1 \\
+    n=2: h(2) - \frac{1}{2}h(1) &= 2\delta(2) \\
+    h(2) &= 0.5
+\end{align*}
+
+
+For $h_2(n)$, the first 3 samples are $h_2(0) = 1$, $h_2(1) = 0.25$, and $h_2(2) = 0.0625$.
+
+Putting it all together, we have:
+\[
+\begin{cases}
+    h(0) = 2 + 1 = 3 \\
+    h(1) = 1 + 0.25 = 1.25 \\
+    h(2) = 0.5 + 0.0625 = 0.5625
+\end{cases}
+\]
+
+We can double check our solution with the following Matlab code:
+\begin{lstlisting}[language=Matlab]
+    x = [1, zeros(1, 9)];
+    
+    % First system
+    b1 = [2];
+    a1 = [1, -0.5];
+    h1 = filter(b1, a1, x);
+    
+    % Second system
+    n = 0:N-1;
+    h2 = (1./(4.^n));
+    
+    % Total impulse response
+    h = h1 + h2;
+    
+    fprintf('h(0) = %.4f\n', h(1));
+    fprintf('h(1) = %.4f\n', h(2));
+    fprintf('h(2) = %.4f\n', h(3));
+\end{lstlisting}
+
+We get the following output:
+\begin{verbatim}
+    h(0) = 3.0000
+    h(1) = 1.2500
+    h(2) = 0.5625
+\end{verbatim}
+
+And we can see that it is the same as our derived solution.
+
+\section{Problem 2}
+
+\begin{enumerate}[label=(\alph*)]
+    \item If initial conditions are zero, the zero-input response would yield the impulse response
+    
+    \textbf{No}, because the zero-input response means, by definition, that the input is zero. The impulse response is the response of the system to $\delta(n)$, which is not zero.
+
+    \item If initial conditions are non-zero, then I can use these initial condition values to compute the impulse response 
+    
+    \textbf{No}, because the impulse response is the response of the system to $\delta(n)$, and the initial conditions are not used to compute the impulse response.
+
+    \item I can compute the output of a system $y(n)$ for an input $x(n)$ using a convolution if I know the impulse response of the system
+    
+    \textbf{Yes}, as long as the system is an LTI system and the input is known, the output can be computed using convolution.
+
+    \item I can compute the impulse response of a system using $h(n) = \frac{b_M}{a_N}\delta(n) + y_c(n)u(n)$ if the order associated to the input is greater than the output, that is M > N.
+
+    \textbf{No}, because if M>N, then we would have $a_N = 0$, and we would be dividing by zero. We require $M \leq N$.
+\end{enumerate}
+
+\section{Problem 3}
+
+\begin{enumerate}[label=(\alph*)]
+    \item Using the width property, we kow that the convolution, $c(n)$, will range from $4+(-2) = 2$ to $N+2$. From the following options, a to i, we can see that $c(n)$ is non zero for $n \geq 2$ and $n \leq N+2$. The option that satisfies this is \textbf{g}.
+    \item The final length of the convolution is $N+2 - 2 + 1 = N+1$. The option that satisfies this is \textbf{I}.
+\end{enumerate}
+
+\section{Problem 4}
+Find the expression of the zero-impulse response of the the system:
+\[
+    y(n) + \frac{1}{2}y(n-1)-\frac{3}{4}y(n-2) = -\frac{3}{2}x(n) + \frac{3}{4}x(n-2)
+\]
+\[
+    y(-1) = 2, \quad y(-2) = 4
+\]
+
+Not sure what zero-impulse response is lol.
+
+Zero-input response:
+\begin{align*}
+    y(n) + \frac{1}{2}y(n-1)-\frac{3}{4}y(n-2) &= 0 \\
+    \text{Characteristic equation: } \lambda^2 + \frac{1}{2}\lambda - \frac{3}{4} &= 0 \\
+    \lambda &= \frac{-1/2 \pm \sqrt{13/4}}{2} \\
+    &= \frac{-1}{4} \pm \frac{\sqrt{13}}{4} \\
+    \implies y_c(n) &= A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n
+\end{align*}
+
+Solving for $A$ and $B$:
+\begin{align*}
+    y(-1) = 2 &= A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-1} + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-1} \\
+    &= A\left(\frac{4}{-1 + \sqrt{13}}\right) + B\left(\frac{4}{-1 - \sqrt{13}}\right) \\
+    y(-2) = 4 &= A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-2} + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-2} \\
+    &= A\left(\frac{16}{1 - 2\sqrt{13} + 13}\right) + B\left(\frac{16}{1 + 2\sqrt{13} + 13}\right)
+\end{align*}
+
+We have the following system of equations:
+\begin{align*}
+    \begin{bmatrix}
+        \left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-1} & \left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-1} \\
+        \left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-2} & \left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-2}
+    \end{bmatrix} \begin{bmatrix}
+        A \\ B
+    \end{bmatrix} &= \begin{bmatrix}
+        2 \\ 4
+    \end{bmatrix}
+\end{align*}
+
+Solving for A and B, we get:
+\begin{align*}
+    A = \frac{\sqrt{13}+2}{\sqrt{13}}, \quad B = \frac{-\sqrt{13}+2}{\sqrt{13}}
+\end{align*}
+
+The zero-input response is then:
+\begin{align*}
+    y_{zi}(n) &= \frac{\sqrt{13}+2}{\sqrt{13}}\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + \frac{-\sqrt{13}+2}{\sqrt{13}}\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n
+\end{align*}
+
+The impulse response is:
+\begin{align*}
+    h(n) + \frac{1}{2}h(n-1) - \frac{3}{4}h(n-2) &= -\frac{3}{2}\delta(n) + \frac{3}{4}\delta(n-2) \\
+    \implies h(n) &= A_0\delta(n) + y_c(n)u(n)
+    A_0 = \frac{3/4}{3/4} = 1
+    y_c(n) = A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n
+\end{align*}
+
+
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
