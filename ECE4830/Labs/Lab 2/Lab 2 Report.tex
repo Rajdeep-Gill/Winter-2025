@@ -31,7 +31,8 @@
 \graphicspath{{./images/}}
 
 % -- Custom Variables --
-\def\me{Rajdeep Gill 7934493}
+\def\me{Rajdeep Gill (7934493)}
+\def\partner{Daniyal Hasnain (7942244)}
 \def\course{ECE 4830}
 \def\labsection{B03}
 \def\labno{2}
@@ -113,7 +114,7 @@
     \hrule
 
     \vspace{4mm}
-    \large \me
+    \large \me ~\&~\partner
 
     \vspace{2mm}
     \large \course~\labsection
@@ -137,7 +138,7 @@
 
 \pagestyle{fancy}
 \fancyhead[L]{\large Lab \labno}
-\fancyhead[R]{\large \me}
+\fancyhead[R]{\large \me, \partner}
 
 \fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
 
@@ -157,58 +158,39 @@ The impulse response of the first system can be found by the following:
     h_1(n) - \frac{1}{2}h_1(n-1) &= 2\delta(n) \\
     h(n) &= A_0\delta(n) + y_c(n)u(n)
 \end{align*}
-We know that $A_0 = \frac{0}{1/2} = 0$, and $y_c(n)$ is the characteristic equation.
-
-That is:
+We know that $A_0 = \frac{0}{1/2} = 0$, and $y_c(n)$ is the characteristic equation. That is:
 \begin{align*}
     \lambda - \frac{1}{2} &= 0 \\
     \implies \lambda &= \frac{1}{2} \\
     y_c(n) &= A\left(\frac{1}{2}\right)^n
 \end{align*}
 
-We know that:
+We can find $A$ by first finding $h_1(0)$:
 \begin{align*}
     n=0: h_1(0) - \frac{1}{2}h_1(-1) &= 2\delta(0) \\
     h_1(0) &= 2 \\
 \end{align*}
 
-Plugging this in,
+Plugging this in, we get $A$, and have our characteristic equation:
 \begin{align*}
     h_1(0) &= A\left(\frac{1}{2}\right)^0 = 2 \\
     A &= 2 \\
-    y_c(n) &= 2\left(\frac{1}{2}\right)^n
+    y_c(n) &= 2\left(\frac{1}{2}\right)^nu(n)
 \end{align*}
 
-We know that $h(n) = h_1(n) + h_2(n)$.
-
-For $h_1(n)$, the first 3 samples are:
+We are already given the impulse response of the second system, so we can sum the two to get the impulse response of the entire system:
 \begin{align*}
-    n=0: h_1(0) &= 2 \\
-    n=1: h_1(1) &= 2\left(\frac{1}{2}\right)^1 = 1 \\
-    n=2: h_1(2) &= 2\left(\frac{1}{2}\right)^2 = 0.5
+    h(n) &= h_1(n) + h_2(n) \\ 
+    &= \left[2\left(\frac{1}{2}\right)^n + \frac{1}{4^n}\right]u(n)
 \end{align*}
 
-Brute forcing this result:
+The first three samples are then:
 \begin{align*}
-    n=0: h(0) - \frac{1}{2}h(-1) &= 2\delta(0) \\
-    h(0) &= 2 \\
-    n=1: h(1) - \frac{1}{2}h(0) &= 2\delta(1) \\
-    h(1) &= 1 \\
-    n=2: h(2) - \frac{1}{2}h(1) &= 2\delta(2) \\
-    h(2) &= 0.5
+    h(0) &= 2\left(\frac{1}{2}\right)^0 + \frac{1}{4^0} = 2 + 1 = 3 \\
+    h(1) &= 2\left(\frac{1}{2}\right)^1 + \frac{1}{4^1} = 1 + 0.25 = 1.25 \\
+    h(2) &= 2\left(\frac{1}{2}\right)^2 + \frac{1}{4^2} = 0.5 + 0.0625 = 0.5625
 \end{align*}
 
-
-For $h_2(n)$, the first 3 samples are $h_2(0) = 1$, $h_2(1) = 0.25$, and $h_2(2) = 0.0625$.
-
-Putting it all together, we have:
-\[
-\begin{cases}
-    h(0) = 2 + 1 = 3 \\
-    h(1) = 1 + 0.25 = 1.25 \\
-    h(2) = 0.5 + 0.0625 = 0.5625
-\end{cases}
-\]
 
 We can double check our solution with the following Matlab code:
 \begin{lstlisting}[language=Matlab]
@@ -231,17 +213,14 @@ We can double check our solution with the following Matlab code:
     fprintf('h(2) = %.4f\n', h(3));
 \end{lstlisting}
 
-We get the following output:
+We get the following output, and can see that it is the same as we calculated:
 \begin{verbatim}
     h(0) = 3.0000
     h(1) = 1.2500
     h(2) = 0.5625
 \end{verbatim}
 
-And we can see that it is the same as our derived solution.
-
 \section{Problem 2}
-
 \begin{enumerate}[label=(\alph*)]
     \item If initial conditions are zero, the zero-input response would yield the impulse response
     
@@ -255,16 +234,16 @@ And we can see that it is the same as our derived solution.
     
     \textbf{Yes}, as long as the system is an LTI system and the input is known, the output can be computed using convolution.
 
-    \item I can compute the impulse response of a system using $h(n) = \frac{b_M}{a_N}\delta(n) + y_c(n)u(n)$ if the order associated to the input is greater than the output, that is M > N.
+    \item I can compute the impulse response of a system using $h(n) = \frac{b_M}{a_N}\delta(n) + y_c(n)u(n)$ if the order associated to the input is greater than the output, that is $M > N$
 
-    \textbf{No}, because if M>N, then we would have $a_N = 0$, and we would be dividing by zero. We require $M \leq N$.
+    \textbf{No}, because if $M > N$, then we would have $a_N = 0$, and we would be dividing by zero. We require $M \leq N$.
 \end{enumerate}
 
 \section{Problem 3}
 
 \begin{enumerate}[label=(\alph*)]
     \item Using the width property, we kow that the convolution, $c(n)$, will range from $4+(-2) = 2$ to $N+2$. From the following options, a to i, we can see that $c(n)$ is non zero for $n \geq 2$ and $n \leq N+2$. The option that satisfies this is \textbf{g}.
-    \item The final length of the convolution is $N+2 - 2 + 1 = N+1$. The option that satisfies this is \textbf{I}.
+    \item The final length of the convolution is $N+2 - 2 + 1 = N+1$. The option that satisfies this is \textbf{i}.
 \end{enumerate}
 
 \section{Problem 4}
@@ -275,56 +254,96 @@ Find the expression of the zero-impulse response of the the system:
 \[
     y(-1) = 2, \quad y(-2) = 4
 \]
-
-Not sure what zero-impulse response is lol.
-
-Zero-input response:
+We were unsure what the zero-impulse response was, so after asking the TA, and fellow students, we were told it was a typo and should be zero-input response. We will solve for the zero-input response instead.
 \begin{align*}
     y(n) + \frac{1}{2}y(n-1)-\frac{3}{4}y(n-2) &= 0 \\
     \text{Characteristic equation: } \lambda^2 + \frac{1}{2}\lambda - \frac{3}{4} &= 0 \\
-    \lambda &= \frac{-1/2 \pm \sqrt{13/4}}{2} \\
-    &= \frac{-1}{4} \pm \frac{\sqrt{13}}{4} \\
-    \implies y_c(n) &= A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n
+    \lambda &= \frac{-1/2 \pm \sqrt{13/4}}{2} = \frac{-1}{4} \pm \frac{\sqrt{13}}{4} \\
+    \implies y_c(n) &= C_1\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + C_2\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n \\
+    &= C_1\left(0.6514\right)^n + C_2\left(-1.1514\right)^n
 \end{align*}
 
 Solving for $A$ and $B$:
 \begin{align*}
-    y(-1) = 2 &= A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-1} + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-1} \\
-    &= A\left(\frac{4}{-1 + \sqrt{13}}\right) + B\left(\frac{4}{-1 - \sqrt{13}}\right) \\
-    y(-2) = 4 &= A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-2} + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-2} \\
-    &= A\left(\frac{16}{1 - 2\sqrt{13} + 13}\right) + B\left(\frac{16}{1 + 2\sqrt{13} + 13}\right)
+    y(-1) = 2 &= C_1\left(0.6514\right)^{-1} + C_2\left(-1.1514\right)^{-1}\\
+    2&= 1.5352C_1 - 0.8685C_2 \\
+    y(-2) = 4 &=  C_1\left(0.6514\right)^{-2} + C_2\left(-1.1514\right)^{-2}\\
+    4&= 2.3568C_1 + 0.7543C_2
 \end{align*}
 
 We have the following system of equations:
 \begin{align*}
     \begin{bmatrix}
-        \left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-1} & \left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-1} \\
-        \left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^{-2} & \left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^{-2}
+        1.5352 & -0.8685 \\
+        2.3568 & 0.7543
     \end{bmatrix} \begin{bmatrix}
         A \\ B
     \end{bmatrix} &= \begin{bmatrix}
         2 \\ 4
-    \end{bmatrix}
+    \end{bmatrix} \\
+    \textbf{A}\textbf{x} &= \textbf{b} \\
 \end{align*}
-
-Solving for A and B, we get:
+Using Cramer's rule, we have:
 \begin{align*}
-    A = \frac{\sqrt{13}+2}{\sqrt{13}}, \quad B = \frac{-\sqrt{13}+2}{\sqrt{13}}
+    \text{det}(\textbf{A}) &= (1.5353 \times 0.7543) - (-0.8685 \times 2.3568) = 3.2049 \\
+    \text{det}(\textbf{A}_{C_1}) &= \left|
+        \begin{matrix}
+            2 & -0.8685 \\
+            4 & 0.7543
+        \end{matrix}
+    \right| = (2\times0.7543) - (4 \times -0.8682) = 4.9814 \\
+    \text{det}(\textbf{A}_{C_2}) &= \left|
+        \begin{matrix}
+            1.5352 & 2 \\
+            2.3568 & 4
+        \end{matrix}
+    \right| = (1.5352 \times 4) - (2.3568 \times 2) = 1.4272 \\
+    C_1 &= \frac{\text{det}(\textbf{A}_{C_1})}{\text{det}(\textbf{A})} = \frac{4.9814}{3.2049} = 1.5536 \\
+    C_2 &= \frac{\text{det}(\textbf{A}_{C_2})}{\text{det}(\textbf{A})} = \frac{1.4272}{3.2049} = 0.4453
 \end{align*}
 
 The zero-input response is then:
 \begin{align*}
-    y_{zi}(n) &= \frac{\sqrt{13}+2}{\sqrt{13}}\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + \frac{-\sqrt{13}+2}{\sqrt{13}}\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n
+    y_{zi}(n) &= 1.5536\left(0.6514\right)^n + 0.4453\left(-1.1514\right)^n
 \end{align*}
 
-The impulse response is:
-\begin{align*}
-    h(n) + \frac{1}{2}h(n-1) - \frac{3}{4}h(n-2) &= -\frac{3}{2}\delta(n) + \frac{3}{4}\delta(n-2) \\
-    \implies h(n) &= A_0\delta(n) + y_c(n)u(n)
-    A_0 = \frac{3/4}{3/4} = 1
-    y_c(n) = A\left(\frac{-1}{4} + \frac{\sqrt{13}}{4}\right)^n + B\left(\frac{-1}{4} - \frac{\sqrt{13}}{4}\right)^n
-\end{align*}
+Using the following Matlab code, we can verify closed form zero input response to the reccurence relation:
+\begin{lstlisting}[language=MATLAB]
+n_vals = -2:10; 
 
+% Initialize y 
+y = zeros(1, length(n_vals));  
+y(1) = 4;  % y(-2)
+y(2) = 2;  % y(-1)
+% Compute y(n) using difference equation
+for n = 3:length(n_vals)
+    y(n) = -0.5 * y(n-1) + 0.75 * y(n-2);
+end
+
+% Compute analytical zero-input response
+y_zi = 1.5536 * (0.6514.^(n_vals)) + 0.4453 * ((-1.1514).^(n_vals));
+
+disp(' n    Recurrence  Analytical  Difference');
+disp([n_vals' y' y_zi' abs(y - y_zi)']);
+\end{lstlisting}
+
+We get the following output, with a very small difference between the two results at each index. This difference is due to floating point errors and rounded values.
+\begin{verbatim}
+    n       Recurrence  Analytical  Difference
+    -2      4.0000      3.9973      0.0027
+    -1      2.0000      1.9983      0.0017
+    0       2.0000      1.9989      0.0011
+    1       0.5000      0.4993      0.0007
+    2       1.2500      1.2496      0.0004
+    3       -0.250      -0.250      0.0003
+    4       1.0625      1.0624      0.0001
+    5       -0.719      -0.719      0.0002
+    6       1.1562      1.1562      0.0000
+    7       -1.117      -1.117      0.0001
+    8       1.4258      1.4259      0.0001
+    9       -1.551      -1.551      0.0002
+   10       1.8447      1.8449      0.0002
+\end{verbatim}
 
 % --------------------------------------------------------------------------------
 % END BODY
