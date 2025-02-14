@@ -93,7 +93,7 @@ final class HttpRequest implements Runnable {
     } else {
       os.writeBytes(entityBody);
     }
-
+    System.out.println("Entity Body: " + entityBody);
     os.close();
     br.close();
     socket.close();
