@@ -1,0 +1,73 @@
+-- * Network Simulator v1.0 * --
+Enter number of messages to simulate (> 0): [10] 
+Enter packet loss probability (0.0 for no loss): [0.0] 0.1
+Enter packet corruption probability (0.0 for no corruption): [0.0] 0.1
+Enter average time between messages from sender's layer 5 (> 0.0): [1000] 
+Enter window size (> 0): [8] 
+Enter retransmission timeout (>0.0) [15.0] 
+Enter trace level (>= 0): [0] 1
+Enter random seed: [0] 42
+[A] Initializing
+[B] Initializing
+[A] Sending message 0
+toLayer3: packet being lost
+[A] Timeout, resending message 0
+toLayer3: packet being lost
+[A] Timeout, resending message 0
+[B] Delivering message 0
+[B] Sending ACK 0
+toLayer3: packet being corrupted
+[A] Timeout, resending message 0
+[B] Duplicate packet, resending ACK 0
+[A] Received ACK 0
+[A] Sending message 1
+[B] Delivering message 1
+[B] Sending ACK 1
+[A] Received ACK 1
+[A] Sending message 2
+toLayer3: packet being corrupted
+[B] Corrupted packet, ignoring
+[A] Timeout, resending message 2
+[B] Delivering message 2
+[B] Sending ACK 2
+[A] Received ACK 2
+[A] Sending message 3
+toLayer3: packet being lost
+[A] Timeout, resending message 3
+[B] Delivering message 3
+[B] Sending ACK 3
+[A] Received ACK 3
+[A] Sending message 4
+[B] Delivering message 4
+[B] Sending ACK 4
+[A] Received ACK 4
+[A] Sending message 5
+[B] Delivering message 5
+[B] Sending ACK 5
+[A] Received ACK 5
+[A] Sending message 6
+[B] Delivering message 6
+[B] Sending ACK 6
+[A] Received ACK 6
+[A] Sending message 7
+[B] Delivering message 7
+[B] Sending ACK 7
+toLayer3: packet being lost
+[A] Timeout, resending message 7
+toLayer3: packet being corrupted
+[B] Corrupted packet, ignoring
+[A] Timeout, resending message 7
+[B] Duplicate packet, resending ACK 7
+[A] Received ACK 7
+[A] Sending message 8
+[B] Delivering message 8
+[B] Sending ACK 8
+[A] Received ACK 8
+[A] Sending message 0
+[B] Delivering message 0
+[B] Sending ACK 0
+toLayer3: packet being lost
+[A] Timeout, resending message 0
+[B] Duplicate packet, resending ACK 0
+[A] Received ACK 0
+Simulator terminated at time 11074.068422498245

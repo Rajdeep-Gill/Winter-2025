@@ -190,7 +190,8 @@ In frequency domain, using the tables, we find that the impulse response of a si
 
 We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is:
 \begin{align*}
-    H(f) &= \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
+    H(f) &= \frac{4}{\pi} \times \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
+    &= \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}
 \end{align*}
 
 
@@ -207,8 +208,8 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
     The output of the system is given by:
     \begin{align*}
         Y_1(f) &= H(f) \cdot X_1(f) \\
-        &= \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \\
-        &= \frac{\pi^2}{16} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \times e^{-j2\pi f} \\
+        &= \left(\text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \\
+        &= \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \times e^{-j2\pi f} \\
     \end{align*}
 
     Taking the inverse fourier transform of the rect function, with the time scaling and frequency shifting properties
@@ -220,8 +221,8 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
 
     Thus, the output of the system is:
     \begin{align*}
-        y_1(t) &= \frac{\pi^2}{16} \times \frac{4}{\pi} \text{sinc}\left(\frac{4[t-2]}{\pi}\right) \\
-        &= \boxed{\frac{\pi}{4} \text{sinc}\left(\frac{4[t-2]}{\pi}\right)}
+        y_1(t) &= \frac{\pi}{4} \times \frac{4}{\pi} \text{sinc}\left(\frac{4[t-2]}{\pi}\right) \\
+        &= \boxed{\text{sinc}\left(\frac{4[t-2]}{\pi}\right)}
     \end{align*}
 
     \item We can rewrite $x_2(t)$ as follows:   
