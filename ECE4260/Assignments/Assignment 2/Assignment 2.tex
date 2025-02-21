@@ -35,7 +35,7 @@
 \def\course{ECE 4260}
 \def\labsection{A01}
 
-\def\labno{1}
+\def\labno{2}
 \def\title{Assignment 2}
 
 % -- Styling for code snippets --
@@ -190,39 +190,53 @@ In frequency domain, using the tables, we find that the impulse response of a si
 
 We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is:
 \begin{align*}
+<<<<<<< HEAD
     H(f) &= \frac{4}{\pi} \times \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
     &= \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}
+=======
+    H(f) &= \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
+>>>>>>> ea8efb12a7e73e40c91f5278d717c518244078b3
 \end{align*}
 
 
 \begin{enumerate}[label=2.\arabic*]
     \item We can rewrite $x_1(t)$ as follows:
     \begin{align*}
-        x_1(t) = \frac{\sin(4[t-1])}{\pi(t-1)} = \frac{4}{\pi} \text{sinc}(4[t-1])
+        x_1(t) = \frac{\sin(4[t+1])}{\pi(t+1)} = \frac{\frac{4}{\pi}\sin\left(\pi \frac{4[t+1]}{\pi}\right)}{\pi \frac{4}{\pi}(t+1)} = \frac{4}{\pi} \text{sinc}\left(\frac{4[t+1]}{\pi}\right)
     \end{align*}
     Similarly the fourier transform of $x_1(t)$ is:
     \begin{align*}
-        X_1(f) = \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
+        X_1(f) = \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{j2\pi f} \\
     \end{align*}
 
     The output of the system is given by:
     \begin{align*}
         Y_1(f) &= H(f) \cdot X_1(f) \\
+<<<<<<< HEAD
         &= \left(\text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \\
         &= \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \times e^{-j2\pi f} \\
+=======
+        &= \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{j2\pi f}\right) \\
+        &= \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right)\\
+>>>>>>> ea8efb12a7e73e40c91f5278d717c518244078b3
     \end{align*}
 
-    Taking the inverse fourier transform of the rect function, with the time scaling and frequency shifting properties
+    Taking the inverse fourier transform of the rect function, with the time scaling:
     \begin{align*}
-        \mathcal{F}^{-1}\left\{\text{rect}\left(\frac{f}{a}\right) \cdot e^{-j2\pi f \times b}\right\} &= |a| \text{sinc}(a(t-b)) \\
-        \text{Where } a &= 4/\pi, b = 1 \\
-        \implies \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} &\times e^{-j2\pi f} = \frac{4}{\pi} \text{sinc}\left(\frac{4[t-2]}{\pi}\right)
+        \mathcal{F}^{-1}\left\{\text{rect}\left(\frac{f}{a}\right) \right\} &= |a| \text{sinc}(at) \\
+        \text{Where } a &= 4/\pi \\
+        \implies \text{rect}\left(\frac{\pi f}{4}\right) &\xrightarrow{\mathcal{F}^{-1}} \frac{4}{\pi} \text{sinc}\left(\frac{4t}{\pi}\right)
     \end{align*}
 
     Thus, the output of the system is:
     \begin{align*}
+<<<<<<< HEAD
         y_1(t) &= \frac{\pi}{4} \times \frac{4}{\pi} \text{sinc}\left(\frac{4[t-2]}{\pi}\right) \\
         &= \boxed{\text{sinc}\left(\frac{4[t-2]}{\pi}\right)}
+=======
+        y_1(t) &= \frac{\pi}{4} \times \frac{4}{\pi} \text{sinc}\left(\frac{4t}{\pi}\right) \\
+        &= \boxed{\text{sinc}\left(\frac{4t}{\pi}\right)}
+>>>>>>> ea8efb12a7e73e40c91f5278d717c518244078b3
     \end{align*}
 
     \item We can rewrite $x_2(t)$ as follows:   
@@ -249,22 +263,25 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
     The output in the frequency domain is:
     \begin{align*}
         Y_2(f) &= H(f) \cdot X_2(f) \\
-        &= \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \\
+        &= \frac{\pi}{4}\left( \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \\
     \end{align*}
 
     Since the rectangle function is $1$ for $|f| \leq 1/2$, mutliplying by the rectangular function on the outside is essentially mutliplying by 1. Thus, the output in the frequency domain is:
     \begin{align*}
-        Y_2(f) &=  \frac{\pi}{4}\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right) \\
+        Y_2(f) &=  \left(\frac{\pi}{4}\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \times e^{-j2\pi f} \\
     \end{align*}
 
     The convolution in the frequency domain is equivalent to multiplication in the time domain. Thus, the output in the time domain is:
     \begin{align*}
-        y_2(t) &= \mathcal{F}^{-1}\left(\frac{\pi}{4}\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \\
-        &= \frac{\pi}{4} \mathcal{F}^{-1}\left(\text{rect}\left(\frac{\pi f}{2}\right)\right) \times \mathcal{F}^{-1}\left(\text{rect}\left(\frac{\pi f}{2}\right)\right) \\
+        \mathcal{F}^{-1}\left(\frac{\pi}{4}\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) &= \frac{\pi}{4} \mathcal{F}^{-1}\left(\text{rect}\left(\frac{\pi f}{2}\right)\right) \times \mathcal{F}^{-1}\left(\text{rect}\left(\frac{\pi f}{2}\right)\right) \\
         &= \frac{\pi}{4} \left(\frac{2}{\pi} \text{sinc}\left(\frac{2t}{\pi}\right)\right) \times \left(\frac{2}{\pi} \text{sinc}\left(\frac{2t}{\pi}\right)\right) \\
-        &= \boxed{\frac{1}{\pi}\left(\text{sinc}\left(\frac{2t}{\pi}\right)\right)^2} \
+        &= \frac{1}{\pi}\left(\text{sinc}\left(\frac{2t}{\pi}\right)\right)^2 \
     \end{align*}
 
+    The multiplication by the exponential term in the frequency domain is equivalent to a time shift, $t_0 = 1$,  in the time domain. Thus, the output in the time domain is:
+    \begin{align*}
+        y_2(t) = \boxed{\frac{1}{\pi}\left(\text{sinc}\left(\frac{2(t-1)}{\pi}\right)\right)^2}
+    \end{align*}
 
 \end{enumerate}
 
@@ -275,18 +292,31 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
         g_n &= \frac{1}{T} \int_{0}^{T} g(t) e^{-j2\pi n t/T} dt \\
         &= \frac{1}{2} \int_{0}^{2} t^2e^{-j\pi n t} dt \\
     \end{align*}
-    We can solve this via integration of parts:
+    We can solve this integral by doing integration by parts twice:
     \begin{align*}
-        \int x^2 e^{-ax} dx &= \frac{x^2 e^{-ax}}{-a} + \frac{2}{a} \int x e^{-ax} dx \\
-        &= \frac{x^2 e^{-ax}}{-a} + \frac{2}{a} \left( \frac{x e^{-ax}}{-a} + \frac{1}{a} \int e^{-ax} dx \right) \\
-        &= \frac{x^2 e^{-ax}}{-a} + \frac{2x e^{-ax}}{-a^2} - \frac{2}{a^2} e^{-ax} + C \\
-        &= -\frac{x^2 e^{-ax}}{a} - \frac{2x e^{-ax}}{a^2} - \frac{2}{a^2} e^{-ax} + C
+        \int t^2 e^{at} dt = \frac{t^2 e^{at}}{a} - \frac{2t e^{at}}{a^2} - \frac{2 e^{at}}{a^3}
     \end{align*}
 
-    We have that $a = j\pi n$:
+    We have that $a = -j\pi n$:
     \begin{align*}
-        g_n &= -\frac{t^2 e^{-j\pi n t}}{j\pi n} - \frac{2t e^{-j\pi n t}}{(j\pi n)^2} - \frac{2 e^{-j\pi n t}}{(j\pi n)^2} \Bigg|_{0}^{2} \\
+        2g_n &= \left\{\frac{t^2 e^{-j\pi n t}}{-j\pi n} - \frac{2t e^{-j\pi n t}}{(-j\pi n)^2} - \frac{2 e^{-j\pi n t}}{(-j\pi n)^3}\right\} \Bigg|_{0}^{2} \\
+        &= \left(\frac{4 e^{-2j\pi n}}{-j \pi n} - \frac{4 e^{-2j\pi n}}{(-j\pi n)^2} - \frac{2 e^{-2j\pi n}}{(-j\pi n)^3}\right) - \left(-\frac{2}{(-j\pi n )^3}\right) \\
+        g_n &= \frac{2e^{-2j\pi n}}{-j \pi n} - \frac{2e^{-2j\pi n}}{(-j\pi n)^2} - \frac{e^{-2j\pi n}}{(-j\pi n)^3} + \frac{1}{(-j\pi n)^3} \\
+        &= \frac{j2e^{-2j\pi n}}{\pi n} + \frac{2e^{-2j\pi n}}{\pi^2 n^2} + \frac{je^{-2j\pi n}}{\pi^3 n^3} - \frac{j}{\pi^3 n^3} \\
+        \text{Since n is an integer, } e^{-2j\pi n} &= 1 \\
+        &= \frac{j2}{\pi n} + \frac{2}{\pi^2 n^2} + \frac{j}{\pi^3 n^3} - \frac{j}{\pi^3 n^3} \\
+        &= \frac{(\pi n)2j + 2}{\pi^2 n^2} \\
+        &= \frac{2(1+j\pi n)}{\pi^2 n^2}, \quad \text{for } n \neq 0
     \end{align*}
+
+    When n = 0, we have that:
+    \begin{align*}
+        g_0 &= \frac{1}{T} \int_{0}^{T} g(t) dt \\
+        &= \frac{1}{2} \int_{0}^{2} t^2 dt \\
+        &= \frac{1}{2} \left(\frac{t^3}{3}\right) \Bigg|_{0}^{2} \\
+        &= \frac{4}{3}
+    \end{align*}
+
 
     \item We can equate the series at $t = 0$, to show the idenity:
     \begin{align*}
@@ -331,29 +361,24 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
 \end{enumerate}
 
 \section{Problem 4}
-The signal $x(t)$ whose fourier transform in the graph will be a sinc$^2$ function, modulated by a cosine function at a frequency, $f = 4$.
-
-Since the plot is a triangle function, which is the convolution of two rectangular functions, we can find the original signal as follows:
+The fourier transform provided is an ampltiude modulated signal with a carrier frequency of $f = 4$. The fourier transform of the base signal is:
 \begin{align*}
-    \mathcal{F}^{-1}(X(f)) &= \mathcal{F}^{-1}\left(\text{rect}\left(\frac{f}{2}\right) \ast \text{rect}\left(\frac{f}{2}\right)\right) \\
-    &= \mathcal{F}^{-1}\left(\text{rect}\left(\frac{f}{2}\right)\right) \times \mathcal{F}^{-1}\left(\text{rect}\left(\frac{f}{2}\right)\right) \\
+    X(f) = 2\Lambda\left(\frac{f}{2}\right)
 \end{align*}
 
-We know:
+We know that the inverse transform of a triangular function is a sinc$^2$ function. That is:
 \begin{align*}
-    \mathcal{F}(2\text{sinc}(2t)) &= \text{rect}\left(\frac{f}{2}\right) \\
+    \Lambda(f) &\xrightarrow{\mathcal{F}^{-1}} \text{sinc}^2(t) \\
 \end{align*}
 
-Thus we have that:
+Applying the proper scaling:
 \begin{align*}
-    \implies 4\text{sinc}^2(2t)
+    2\Lambda\left(\frac{f}{2}\right) &\xrightarrow{\mathcal{F}^{-1}} 4\text{sinc}^2(2t)
 \end{align*}
 
-This signal is modulated by a cosine function and the plotted fourier transform has two peaks, centered at $4$ and $-4$. Thus, the cosine function is at a frequency of $4$, and the amplitude will be scaled by 2 as modulation halves the amplitude.
-
-Therefore, we have that the original signal is:
+This signal is modulated by a cosine function and the plotted fourier transform has two peaks, centered at $4$ and $-4$. Therefore, we have that the signal is:
 \begin{align*}
-    x(t) &= 8\text{sinc}^2(2t) \times \cos(4\pi t)
+    x(t) &= 4\text{sinc}^2(2t) \times \cos(2\pi (4) t)
 \end{align*}
 
 \section{Problem 5}
@@ -385,25 +410,29 @@ Therefore, we have that the original signal is:
         &\text{The bounds can be set to } -\tau/2, \tau/2 \text{ as } x(t) \text{ is } 0 \text{ outside of this range} \\
         &= \frac{1}{T}\sum_{k=-\infty}^{\infty} \int_{\tau/2}^{-\tau/2} x(u) e^{-j2\pi n (u + kT)/T} du \\
         &= \frac{1}{T}\sum_{k=-\infty}^{\infty} e^{-j2\pi n k} \int_{\tau/2}^{-\tau/2} x(u) e^{-j2\pi n u/T} du \\
-        &\text{We know that for any integer } n, e^{-j2\pi nk} = 1 \\
+        &\text{We know that for any integer } n, k, e^{-j2\pi nk} = 1 \\
         &= \frac{1}{T}\int_{\tau/2}^{-\tau/2} x(u) e^{-j2\pi \left(\frac{n}{T}\right)u} du \\
-        &= \frac{1}{T} X(\frac{n}{T})
+        &= \frac{1}{T} X\left(\frac{n}{T}\right)
     \end{align*}
 \end{enumerate}
 
 \section{Problem 6}
 
 \begin{enumerate}[label=6.\arabic*]
-    \item Since $h(t)$ is an odd function, the fourier transform will be imaginary, and will have a phase of $\pm \frac{\pi}{2}$.
+    \item Since $h(t)$ is an odd function, the fourier transform will be purely imaginary, and will have a phase of $\pm \frac{\pi}{2}$.
     \item Evaluating the following integral:
     \begin{align*}
         \int_{-\infty}^{\infty} G(f)\cos(\pi f)df &= \int_{-\infty}^{\infty} G(f)\left(\frac{e^{j\pi f} + e^{-j\pi f}}{2}\right)df \\
         &= \frac{1}{2}\int_{-\infty}^{\infty} G(f)e^{j\pi f}df + \frac{1}{2}\int_{-\infty}^{\infty} G(f)e^{-j\pi f}df \\
-        &=\frac{1}{2}\left( g(t - 1/2) + g(t + 1/2) \right)
+        &= \frac{1}{2}\int_{-\infty}^{\infty} G(f)e^{j2\pi f (\frac{1}{2})}df + \frac{1}{2}\int_{-\infty}^{\infty} G(f)e^{j2\pi f (-\frac{1}{2})}df \\
+        &=\frac{1}{2}\left( g\left(\frac{1}{2}\right) + g\left(-\frac{1}{2}\right) \right) \\
+        &= \frac{1}{4}
     \end{align*}
     \item Evaluating the following integral:
     \begin{align*}
-        \int_{-\infty}^{\infty} H(f)e^{j4\pi f} df = h(t - 2)
+        \int_{-\infty}^{\infty} H(f)e^{j4\pi f} df &= \int_{-\infty}^{\infty} H(f)e^{j2\pi f (2)} df \\
+        &= h(2) \\
+        &= 0
     \end{align*}
 
     \item The plot of the odd and even parts of $g(x)$ are shown in \autoref{fig:p6}.
@@ -415,54 +444,46 @@ Therefore, we have that the original signal is:
         \label{fig:p6}
     \end{figure}
 
-    \item The real part of $G(f)$ can be found from the even part of $g(t)$, $g_e(t)$:
+    \item The real part of $G(f)$ is fourier transform of the even part of $g(t)$:
     \begin{align*}
         G(f) &= \int_{-\infty}^{\infty} g(t)e^{-j2\pi ft} dt \\
         &= \int_{-\infty}^{\infty} (g_e(t) + g_o(t))e^{-j2\pi ft} dt \\
         &= \int_{-\infty}^{\infty} g_e(t)e^{-j2\pi ft} dt + \int_{-\infty}^{\infty} g_o(t)e^{-j2\pi ft} dt \\
+        &= \int_{-\infty}^{\infty} g_e(t) cos(2\pi ft) dt + j\int_{-\infty}^{\infty} g_o(t)sin(2\pi ft) dt \\
+        &= \mathcal{F}\{g_e(t)\} + j\mathcal{F}\{g_o(t)\}
     \end{align*}
 
-    Since we are only looking for the real part of the fourier transform,
+    In \autoref{fig:p6} we see that the even part of $g(t)$ is a triangle function, which has a fourier transform of a sinc$^2$ function. Which is:
     \begin{align*}
-        \text{Re}(G(f)) &= \int_{-\infty}^{\infty} g_e(t)e^{-j2\pi ft} dt \\
-        &= \mathcal{F}\{g_e(t)\}
+        g_e(t) = \frac{1}{2} \Lambda(t) \implies \text{Re}(G(f)) = \frac{1}{2} \text{sinc}^2(f)
     \end{align*}
 
-    \item In \autoref{fig:p6} we see that the even part of $g(t)$ is a triangle function, which has a fourier transform of a sinc$^2$ function. Thus, the real part of $G(f)$ is a sinc$^2$ function.
-
+    \item We can find the fourier transform of $g(t)$ as follows:
     \begin{align*}
-        \text{Re}(G(f)) = \frac{1}{2}\text{sinc}^2(f)
+        G(f) = \int_{-\infty}^{\infty} g(t)e^{-j2\pi ft}dt &= \int_{0}^{1}(1-t)e^{-j2\pi ft}dt \\
+        &= \int_{0}^{1} e^{-j2\pi ft}dt - \int_{0}^{1} te^{-j2\pi ft}dt \\
+        &= \frac{e^{-j2\pi f t}}{-j 2\pi f} \Bigg|_{0}^{1} - \left(\frac{te^{-j2\pi f t}}{-j2\pi f} \Bigg|_{0}^{1} - \int_{0}^{1} \frac{e^{-j2\pi f t}}{-j2\pi f}dt\right) \\
+        &= \frac{1-e^{-j2\pi f}}{j2\pi f} - \left(\frac{e^{-j2\pi f}}{-j2\pi f}
+        - \left(\frac{e^{-j2\pi f t}}{(-j2\pi f)^2}\right) \Bigg|_{0}^{1}\right) \\
+        &= \frac{1}{j2\pi f} - \frac{e^{-j2\pi f}}{j2\pi f} + \frac{e^{-j2\pi f}}{j2\pi f} + \frac{e^{-j2\pi f} - 1}{(-j2\pi f)^2} \\
+        &= \frac{-j}{2\pi f} + \frac{1-\cos(2\pi f) + j \sin (2\pi f)}{(2\pi f)^2} \\
+    \text{Using the idenity: } 1-\cos(2x) &= 2\sin^2(x) \\
+        &= \frac{-j}{2\pi f} + \frac{2\sin^2(\pi f) + j\sin(2\pi f)}{(2\pi f)^2} \\
+        &= \frac{2\sin^2(\pi f)}{4(\pi f)^2}+ j\left(\frac{\sin(2\pi f)}{(2\pi f)^2} - \frac{1}{2\pi f}\right) \\
+        &= \frac{\text{sinc}(f)^2}{2} + j\left(\frac{\text{sinc}(2f)}{2\pi f} - \frac{1}{2\pi f}\right) \\
+        &= \boxed{\frac{\text{sinc}(f)^2}{2} + j\left(\frac{\text{sinc}(2f) - 1}{2\pi f}\right)}
     \end{align*}
 
-    We can find the imaginary part of $G(f)$ as follows:
+    \item We can see that $h(t) = 2g_o(t)$, and thus the fourier transform of $h(t)$ is:
     \begin{align*}
-        \text{Im}(G(f)) &= \int_{-\infty}^{\infty} g_o(t)e^{-j2\pi ft} dt \\
-        &= \int_{-\infty}^{\infty} g_o(t)(\cos(2\pi ft) - j\sin(2\pi ft)) dt \\
-        &= \int_{-\infty}^{\infty} g_o(t)\cos(2\pi ft) dt - j\int_{-\infty}^{\infty} g_o(t)\sin(2\pi ft) dt \\
-        &= -j \int_{-\infty}^{\infty} g_o(t)\sin(2\pi ft) dt \\
-        &= -j \int_{-1}^{0}(-1/2 - t)\sin(2\pi ft) dt - j \int_{0}^{1}(1/2 - t)\sin(2\pi ft) dt \\
+        H(f) = j2\text{Im}(G(f)) = j \frac{\text{sinc}(2f) - 1}{\pi f}
     \end{align*}
 
-    The first integral simplifies to:
+    \item Given that $\varphi(x)$ is the periodized version of $h(x)$ with period $T=2$, we can use the result in \textbf{5.3} to find the fourier series coefficients $\varphi_n$:
     \begin{align*}
-        \int_{-1}^{0}\left(\frac{-1}{2} -t\right)\sin(2\pi f t) dt &= \frac{1}{2}\int_{-1}^{0}\sin(2\pi f t) dt + \int_{-1}^{0}t\sin(2\pi f t) dt \\
-        &= \frac{1}{2}\left(\frac{-\cos(2\pi f t)}{2\pi f}\right)\Bigg|_{-1}^{0} + \left(\frac{-t\cos(2\pi f t)}{2\pi f}\right)\Bigg|_{-1}^{0} - \int_{-1}^{0}\frac{-\cos(2\pi f t)}{2\pi f} dt \\
-        &= \frac{1}{4\pi f} \left(-1 - (-1)\right) - \frac{1}{2\pi f} + \frac{1}{2\pi f} \left(\sin(2\pi f t )\right)\Bigg|_{-1}^{0} \\
-        &= -\frac{1}{2\pi f}
+        \varphi_n = \frac{1}{T} H\left(\frac{n}{T}\right) = \frac{1}{2} H\left(\frac{n}{2}\right) &= \frac{j}{2} \frac{\text{sinc}(n) - 1}{\pi \frac{n}{2}} \\
+        &= j\left(\frac{\text{sinc}(n) - 1}{n\pi}\right)
     \end{align*}
-
-    The second integral simplfies to:
-    \begin{align*}
-        \int_{0}^{1}\left(\frac{1}{2} -t\right)\sin(2\pi f t) dt &= \frac{1}{2}\int_{0}^{1}\sin(2\pi f t) dt - \int_{0}^{1}t\sin(2\pi f t) dt \\
-        &= \frac{-t \cos(2\pi f t)}{2\pi f} \Bigg|_{0}^{1} + \int_{0}^{1}\frac{\cos(2\pi f t)}{2\pi f} dt \\
-        &= -\frac{1}{2\pi f}
-    \end{align*}~
-
-    Putting it together:
-    \begin{align*}
-        -j \left(-\frac{1}{2\pi f}\right) - j \left(-\frac{1}{2\pi f}\right) &= \frac{1}{\pi f}
-    \end{align*}
-
 \end{enumerate}
 
 % --------------------------------------------------------------------------------
@@ -470,4 +491,4 @@ Therefore, we have that the original signal is:
 % --------------------------------------------------------------------------------
 
 \end{document}
-ß
+ßf
