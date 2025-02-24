@@ -104,7 +104,9 @@ public class StudentNetworkSimulator extends NetworkSimulator {
     // Static variables for ABP
     private static int sequenceNumberA = firstSeqNo;
     private static int sequenceNumberB = firstSeqNo;
-    private static Message currentMessage;  // For retransmission
+    private static int ackNumberA = firstSeqNo; // Flip between 0 and 1
+    private static int ackNumberB = firstSeqNo; // Flip between 0 and 1
+    private static Packet currentPacket; // For retransmission
     private boolean messageInTransit = false;
 
     // for throughput calculation
@@ -114,8 +116,8 @@ public class StudentNetworkSimulator extends NetworkSimulator {
     static double end_time = 0;
 
     // Statistics variables
-    private int numMessagesDelivered = 0;    // Messages successfully delivered
-    private double totalTime;                // Total simulation time
+    private int numMessagesDelivered = 0; // Messages successfully delivered
+    private double totalTime; // Total simulation time
 
     // Also add any necessary methods (e.g. checksum of a String)
     // This is the constructor. Don't touch!
@@ -139,18 +141,6 @@ public class StudentNetworkSimulator extends NetworkSimulator {
         sum += packet.getSeqnum();
         sum += packet.getAcknum();
         String data = packet.getPayload();
-        
-        for (int i = 0; i < data.length(); i++) {
-            sum += data.charAt(i);
-        }
-
-        return sum;
-    }
-
-    private int checkSum(int seqNo, int ackNo, String data) {
-        int sum = 0;
-        sum += seqNo;
-        sum += ackNo;
 
         for (int i = 0; i < data.length(); i++) {
             sum += data.charAt(i);
@@ -168,13 +158,16 @@ public class StudentNetworkSimulator extends NetworkSimulator {
         if (messageInTransit) {
             return;
         }
-        
-        // Create packet and save message for potential retransmission
-        currentMessage = message;
-        Packet packet = new Packet(sequenceNumberA, 0, 
-            checkSum(sequenceNumberA, 0, message.getData()), 
-            message.getData());
-        
+
+        // Create packet
+        Packet packet = new Packet(sequenceNumberA, 0, 0, message.getData());
+
+        packet.setAcknum(ackNumberA);
+        packet.setChecksum(checkSum(packet));
+
+        // Save packet for retransmission
+        currentPacket = packet;
+
         System.out.println("[A] Sending message " + sequenceNumberA);
         messageInTransit = true;
         startTimer(A, RxmtInterval);
@@ -188,16 +181,18 @@ public class StudentNetworkSimulator extends NetworkSimulator {
     protected void aInput(Packet packet) {
         // Verify checksum
         if (checkSum(packet) != packet.getChecksum()) {
-            return;  // Corrupted packet, wait for timeout
+            System.out.println("[A] Corrupted packet, waiting for timeout");
+            return; // Corrupted packet, wait for timeout
         }
 
         // Check ACK number
         System.out.println("[A] Received ACK " + packet.getAcknum());
         acked_msgs++;
-        if (packet.getAcknum() == sequenceNumberA) {
+        if (packet.getAcknum() == ackNumberA) {
             stopTimer(A);
             messageInTransit = false; // No message in transit
             sequenceNumberA = (sequenceNumberA + 1) % LimitSeqNo; // Update sequence number
+            ackNumberA = (ackNumberA + 1) % 2; // Flip ACK number
         }
     }
 
@@ -209,11 +204,8 @@ public class StudentNetworkSimulator extends NetworkSimulator {
         // Retransmit last packet
         if (messageInTransit) {
             System.out.println("[A] Timeout, resending message " + sequenceNumberA);
-            Packet packet = new Packet(sequenceNumberA, 0,
-                checkSum(sequenceNumberA, 0, currentMessage.getData()),
-                currentMessage.getData());
             startTimer(A, RxmtInterval);
-            toLayer3(A, packet);
+            toLayer3(A, currentPacket);
         }
     }
 
@@ -224,6 +216,7 @@ public class StudentNetworkSimulator extends NetworkSimulator {
     protected void aInit() {
         System.out.println("[A] Initializing");
         sequenceNumberA = firstSeqNo;
+        ackNumberA = firstSeqNo;
         messageInTransit = false;
         start_time = getTime();
     }
@@ -236,28 +229,29 @@ public class StudentNetworkSimulator extends NetworkSimulator {
         // Verify checksum
         if (checkSum(packet) != packet.getChecksum()) {
             System.out.println("[B] Corrupted packet, ignoring");
-            return;  // Corrupted packet, ignore it
+            return; // Corrupted packet, ignore it
         }
 
-        // Check sequence number
-        if (packet.getSeqnum() == sequenceNumberB) {
-            numMessagesDelivered++;
+        // Check ack number
+        if (packet.getAcknum() == ackNumberB) {
+            numMessagesDelivered++; // Successfully delivered message
             // Deliver to layer 5
-            System.out.println("[B] Delivering message " + sequenceNumberB);
+            System.out.println("[B] Received message " + sequenceNumberB);
             toLayer5(packet.getPayload());
-            
+
             // Send ACK
-            System.out.println("[B] Sending ACK " + sequenceNumberB);
-            Packet ack = new Packet(0, sequenceNumberB, 0, "");
+            System.out.println("[B] Sending ACK " + ackNumberB);
+            Packet ack = new Packet(0, ackNumberB, 0, "");
             ack.setChecksum(checkSum(ack));
             toLayer3(B, ack);
-            
-            // Update expected sequence number
+
+            // Update expected sequence number and ACK number
             sequenceNumberB = (sequenceNumberB + 1) % LimitSeqNo;
-        } else {
-            // Duplicate packet, resend last ACK
-            System.out.println("[B] Duplicate packet, resending ACK " + (sequenceNumberB + LimitSeqNo - 1) % LimitSeqNo);
-            Packet ack = new Packet(0, (sequenceNumberB + LimitSeqNo - 1) % LimitSeqNo, 0, "");
+            ackNumberB = (ackNumberB + 1) % 2;
+        } else { // Packet was resent by A, so resend previous ack
+            int prevAck = (ackNumberB + 1) % 2;
+            System.out.println("[B] Resending ACK " + prevAck);
+            Packet ack = new Packet(0, prevAck, 0, "");
             ack.setChecksum(checkSum(ack));
             toLayer3(B, ack);
         }
@@ -270,13 +264,14 @@ public class StudentNetworkSimulator extends NetworkSimulator {
     protected void bInit() {
         System.out.println("[B] Initializing");
         sequenceNumberB = firstSeqNo;
+        ackNumberB = firstSeqNo;
     }
 
     // Use to print final statistics
     protected void Simulation_done() {
         totalTime = getTime() - start_time;
-        double throughput = (double)numMessagesDelivered / totalTime;
-        
+        double throughput = (double) numMessagesDelivered / totalTime;
+
         System.out.println("\n=== Simulation Statistics ===");
         System.out.println("Simulation time: " + String.format("%.2f", totalTime));
         System.out.println("Messages Delivered: " + numMessagesDelivered);
