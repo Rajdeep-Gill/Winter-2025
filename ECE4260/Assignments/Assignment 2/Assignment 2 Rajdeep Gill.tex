@@ -190,12 +190,7 @@ In frequency domain, using the tables, we find that the impulse response of a si
 
 We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is:
 \begin{align*}
-<<<<<<< HEAD
-    H(f) &= \frac{4}{\pi} \times \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
-    &= \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}
-=======
     H(f) &= \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \\
->>>>>>> ea8efb12a7e73e40c91f5278d717c518244078b3
 \end{align*}
 
 
@@ -206,19 +201,14 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
     \end{align*}
     Similarly the fourier transform of $x_1(t)$ is:
     \begin{align*}
-        X_1(f) = \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{j2\pi f} \\
+        X_1(f) = \text{rect}\left(\frac{\pi f}{4}\right) \times e^{j2\pi f} \\
     \end{align*}
 
     The output of the system is given by:
     \begin{align*}
         Y_1(f) &= H(f) \cdot X_1(f) \\
-<<<<<<< HEAD
-        &= \left(\text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \\
-        &= \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f} \times e^{-j2\pi f} \\
-=======
-        &= \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right) \times e^{j2\pi f}\right) \\
-        &= \frac{\pi}{4} \text{rect}\left(\frac{\pi f}{4}\right)\\
->>>>>>> ea8efb12a7e73e40c91f5278d717c518244078b3
+        &= \left(\text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left( \text{rect}\left(\frac{\pi f}{4}\right) \times e^{j2\pi f}\right) \\
+        &= \text{rect}\left(\frac{\pi f}{4}\right)\\
     \end{align*}
 
     Taking the inverse fourier transform of the rect function, with the time scaling:
@@ -230,13 +220,7 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
 
     Thus, the output of the system is:
     \begin{align*}
-<<<<<<< HEAD
-        y_1(t) &= \frac{\pi}{4} \times \frac{4}{\pi} \text{sinc}\left(\frac{4[t-2]}{\pi}\right) \\
-        &= \boxed{\text{sinc}\left(\frac{4[t-2]}{\pi}\right)}
-=======
-        y_1(t) &= \frac{\pi}{4} \times \frac{4}{\pi} \text{sinc}\left(\frac{4t}{\pi}\right) \\
-        &= \boxed{\text{sinc}\left(\frac{4t}{\pi}\right)}
->>>>>>> ea8efb12a7e73e40c91f5278d717c518244078b3
+        y_1(t) &= \boxed{\frac{4}{\pi}\text{sinc}\left(\frac{4t}{\pi}\right)}
     \end{align*}
 
     \item We can rewrite $x_2(t)$ as follows:   
@@ -263,24 +247,24 @@ We have that $a = 4/\pi$ and $t_0 = 1$. Thus, the fourier transform of $h(t)$ is
     The output in the frequency domain is:
     \begin{align*}
         Y_2(f) &= H(f) \cdot X_2(f) \\
-        &= \frac{\pi}{4}\left( \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \\
+        &= \left( \text{rect}\left(\frac{\pi f}{4}\right) \times e^{-j2\pi f}\right) \times \left(\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \\
     \end{align*}
 
     Since the rectangle function is $1$ for $|f| \leq 1/2$, mutliplying by the rectangular function on the outside is essentially mutliplying by 1. Thus, the output in the frequency domain is:
     \begin{align*}
-        Y_2(f) &=  \left(\frac{\pi}{4}\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \times e^{-j2\pi f} \\
+        Y_2(f) &=  \left(\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) \times e^{-j2\pi f} \\
     \end{align*}
 
     The convolution in the frequency domain is equivalent to multiplication in the time domain. Thus, the output in the time domain is:
     \begin{align*}
         \mathcal{F}^{-1}\left(\frac{\pi}{4}\text{rect}\left(\frac{\pi f}{2}\right) \ast \text{rect}\left(\frac{\pi f}{2}\right)\right) &= \frac{\pi}{4} \mathcal{F}^{-1}\left(\text{rect}\left(\frac{\pi f}{2}\right)\right) \times \mathcal{F}^{-1}\left(\text{rect}\left(\frac{\pi f}{2}\right)\right) \\
-        &= \frac{\pi}{4} \left(\frac{2}{\pi} \text{sinc}\left(\frac{2t}{\pi}\right)\right) \times \left(\frac{2}{\pi} \text{sinc}\left(\frac{2t}{\pi}\right)\right) \\
-        &= \frac{1}{\pi}\left(\text{sinc}\left(\frac{2t}{\pi}\right)\right)^2 \
+        &= \left(\frac{2}{\pi} \text{sinc}\left(\frac{2t}{\pi}\right)\right) \times \left(\frac{2}{\pi} \text{sinc}\left(\frac{2t}{\pi}\right)\right) \\
+        &= \frac{4}{\pi^2}\left(\text{sinc}\left(\frac{2t}{\pi}\right)\right)^2 \
     \end{align*}
 
-    The multiplication by the exponential term in the frequency domain is equivalent to a time shift, $t_0 = 1$,  in the time domain. Thus, the output in the time domain is:
+    The multiplxication by the exponential term in the frequency domain is equivalent to a time shift, $t_0 = 1$,  in the time domain. Thus, the output in the time domain is:
     \begin{align*}
-        y_2(t) = \boxed{\frac{1}{\pi}\left(\text{sinc}\left(\frac{2(t-1)}{\pi}\right)\right)^2}
+        y_2(t) = \boxed{\frac{4}{\pi^2}\left(\text{sinc}\left(\frac{2(t-1)}{\pi}\right)\right)^2}
     \end{align*}
 
 \end{enumerate}

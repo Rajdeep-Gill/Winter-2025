@@ -1,0 +1,279 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 4260}
+\def\labsection{A01}
+
+\def\labno{3}
+\def\title{Assignment 3}
+
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\scriptsize,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Assignment \labno}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+\section{Problem 1}
+
+\begin{enumerate}[label=1.\arabic*]
+    \item We can show the following:
+    \begin{align*}
+        \int_{-\infty}^{\infty} g_1(t)g_2^*(t) \, dt &= \int_{-\infty}^{\infty} G_1(f)G_2^*(f) \, df
+    \end{align*}
+
+    Starting with the left-hand side:
+    \begin{align*}
+        \int_{-\infty}^{\infty} g_1(t)g_2^*(t) \, dt &= \int_{-\infty}^{\infty} \left( \int_{-\infty}^{\infty} G_1(f)e^{j2\pi ft} \, df \right) \left( \int_{-\infty}^{\infty} G_2^*(f)e^{-j2\pi ft} \, df \right) \, dt \\
+        &= \int_{-\infty}^{\infty} G_1(f)G_2^*(f) \left( \int_{-\infty}^{\infty} e^{j2\pi ft}e^{-j2\pi ft} \, dt \right) \, df \\
+        &= \int_{-\infty}^{\infty} G_1(f)G_2^*(f) \left( \int_{-\infty}^{\infty} e^{(j2\pi ft - j2\pi ft)} \, dt \right) \, df \\
+        &= \int_{-\infty}^{\infty} G_1(f)G_2^*(f) \left( \int_{-\infty}^{\infty} e^{0} \, dt \right) \, df \\
+        &= \int_{-\infty}^{\infty} G_1(f)G_2^*(f) \left( \int_{-\infty}^{\infty} 1 \, dt \right) \, df \\
+        &= \int_{-\infty}^{\infty} G_1(f)G_2^*(f) \, df
+    \end{align*}
+    And thus, we have shown that the left-hand side is equal to the right-hand side.
+
+    \item \textit{Explain how we can obtain Parseval's Theorem from (1).}
+    To find Parseval's Theorem, we can set $g_1(t) = g_2(t) = g(t)$, which implies that $G_1(f) = G_2(f) = G(f)$. Substituting these values into (1.1), we get:
+    \begin{align*}
+        \int_{-\infty}^{\infty} g(t)g^*(t) \, dt &= \int_{-\infty}^{\infty} G(f)G^*(f) \, df
+    \end{align*}
+    \item Using Parseval's Theorem, show that for any $k>0$ we have:
+    \begin{align*}
+        \int_{-\infty}^{\infty} \text{sinc}^2(kt) \, dt = \frac{1}{k}
+    \end{align*}
+
+    Here we have:
+    \begin{align*}
+        g(t) = \text{sinc}(kt), \quad G(f) = \frac{1}{k}\text{rect}\left(\frac{f}{k}\right)
+    \end{align*}
+
+    The conjugate of a rect function is itself, so we have:
+    \begin{align*}
+        \int_{-\infty}^{\infty} \text{sinc}^2(kt) \, dt &= \int_{-\infty}^{\infty} \frac{1}{k}\text{rect}\left(\frac{f}{k}\right)\frac{1}{k}\text{rect}\left(\frac{f}{k}\right) \, df \\
+        &= \frac{1}{k^2}\int_{-k/2}^{k/2} \text{rect}\left(\frac{f}{k}\right) \, df \\
+        &= \frac{1}{k^2}\int_{-k/2}^{k/2} 1 \, df \\
+        &= \frac{1}{k^2}\left[ f \right]_{-k/2}^{k/2} \\
+        &= \frac{1}{k^2}\left( \frac{k}{2} - \left( -\frac{k}{2} \right) \right) \\
+        &= \frac{1}{k}
+    \end{align*}
+
+    And we have shown that $\int_{-\infty}^{\infty} \text{sinc}^2(kt) \, dt = \frac{1}{k}$.
+\end{enumerate}
+
+\section{Problem 2}
+\begin{enumerate}[label=2.\arabic*]
+    \item Show that:
+    \begin{align*}
+        r_{xy}(t) = \int_{-\infty}^{\infty} x(\tau)y^*(\tau - t) \, d\tau = \int_{-\infty}^{\infty} y^*(\tau)x(\tau + t) \, d\tau
+    \end{align*}
+
+    Since we know the correlation function is defined as:
+    \begin{align*}
+        r_{xy}(t) &= x(t) \ast y^*(-t) \\
+        &= \int_{-\infty}^{\infty} x(\tau)y^*(\tau - t) \, d\tau, \quad \text{Let } u = \tau - t, \, du = d\tau \\ 
+        &= \int_{-\infty}^{\infty} x(u + t)y^*(u) \, du \\
+        &= \int_{-\infty}^{\infty} y^*(u)x(u + t) \, du, \quad \text{Let } \tau = u, \, d\tau = du \\
+        &= \int_{-\infty}^{\infty} y^*(\tau)x(\tau + t) \, d\tau
+    \end{align*}
+
+    And we have shown as required.
+
+    \item Show that $r_{xy}(t) = r_{yx}(-t)^\ast$:
+    \begin{align*}
+        r_{xy}(t) = \int_{-\infty}^{\infty} x(\tau)y^*(\tau - t) \, d\tau &= \int_{-\infty}^{\infty} y^*(\tau)x(\tau + t) \, d\tau \\
+        &= \left(\int_{-\infty}^{\infty} y(\tau)x^*(\tau + t) \, d\tau\right)^\ast \\
+        &= \left(r_{yx}(-t)\right)^\ast
+    \end{align*}
+
+    \item If $y(t) = x(t+T)$, we can express $r_{xy}(t)$ and $r_{yy}(t)$ in terms of $r_{xx}(t)$:
+    
+    First, $r_{xy}(t)$:
+    \begin{align*}
+        r_{xy}(t) &= x(t) \ast y^*(-t) = x(t) \ast x^*(T - t) \\
+        &= \int_{-\infty}^{\infty} x(\tau)x^*(\tau - t + T) \, d\tau \\
+        &= r_{xx}(t - T)
+    \end{align*}
+
+    Now, $r_{yy}(t)$:
+    \begin{align*}
+        r_{yy}(t) &= y(t) \ast y^*(-t) = x(t+T) \ast x^*(T - t) \\
+        &= \int_{-\infty}^{\infty} x(\tau + T)x^*(\tau - t + T) \, d\tau, \quad \text {Let } \tau' = \tau + T, \, d\tau' = d\tau \\
+        &= \int_{-\infty}^{\infty} x(\tau')x^*(\tau' - t) \, d\tau' \\
+        &= r_{xx}(t)
+    \end{align*}
+
+    \item What is the relationship between the cross-ESD's $\Psi_{xy}(f)$ and $\Psi_{yx}(f)$?
+
+    Given that $\Psi_{xy}(f) = \mathcal{F}\{r_{xy}(t)\}$ and $\Psi_{yx}(f) = \mathcal{F}\{r_{yx}(t)\}$. And from above we know that $r_{xy}(t) = r_{yx}(-t)^\ast$. We have:
+    \begin{align*}
+        \Psi_{xy}(f) = \mathcal{F}\{r_{xy}(t)\} &= \mathcal{F}\{r_{yx}(-t)^\ast\} \\
+        &= \int_{-\infty}^{\infty} r_{yx}(-t)^\ast e^{-j2\pi ft} \, dt \\
+        &= \int_{-\infty}^{\infty} \left(r_{yx}(-t) e^{j2\pi ft}\right)^\ast \, dt \\
+        &= \left(\int_{-\infty}^{\infty} r_{yx}(-t) e^{j2\pi ft} \, dt\right)^\ast \\
+        &= \left(\mathcal{F}\{r_{yx}(t)\}\right)^\ast \\
+       \Psi_{xy}(f) &= \Psi_{yx}(f)^\ast
+    \end{align*}
+
+    \item We can find an expression of $\Psi_{xy}(f)$ in terms of $X(f)$ and $Y(f)$ as follows:
+
+    \begin{align*}
+        \Psi_{xy}(f) = \mathcal{F}\{r_{xy}(t)\} &= \mathcal{F}\{x(t) \ast y^*(-t)\} \\
+        &= \mathcal{F}\{x(t)\} \cdot \mathcal{F}\{y^*(-t)\} \\
+        &= X(f)Y^*(-f)
+    \end{align*}
+
+    \item We can show that the ESD is real and positive for every $f$ as follows:
+    \begin{align*}
+        \Psi_{xx}(f) = \mathcal{F}\{r_{xx}(t)\} &= \mathcal{F}\{x(t) \ast x^*(-t)\} \\
+        &= \mathcal{F}\{x(t)\} \cdot \mathcal{F}\{x^*(-t)\} \\
+        &= X(f)X^*(f) \\
+        &= |X(f)|^2
+    \end{align*}
+
+    Since the magnitude squared of a complex number is always real and positive, we have shown that the ESD is real and positive for every $f$.
+
+    \item We can find the expressions of $\Psi_{xy}(f)$ and $\Psi_{yy}(f)$ in terms of $\Psi_{xx}(f)$ and $H(f)$ as follows.
+
+    First, $\Psi_{xy}(f)$. We know that $y(t) = h(t) \ast x(t)$, so we have:
+    \begin{align}
+        \Psi_{xy}(f) = \mathcal{F}\{r_{xy}(t)\} = \mathcal{F}\{x(t) \ast y^*(-t)\} = \mathcal{F}\{x(t) \ast h^*(-t) \ast x^*(-t)\}
+    \end{align}
+\end{enumerate}
+
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
+ßf
