@@ -93,7 +93,9 @@ public class StudentNetworkSimulator extends NetworkSimulator {
      */
     public static final int firstSeqNo = 0;
     public static int seqNo = firstSeqNo;
-    private int WindowSize; // Not needed
+    // Ignore warnings
+    @SuppressWarnings("unused")
+    private int WindowSize; // Not needed 
     private double RxmtInterval;
     private int LimitSeqNo;
 

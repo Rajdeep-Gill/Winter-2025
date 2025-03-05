@@ -127,6 +127,7 @@
 \end{center}
 
 \vspace{4mm}
+\tableofcontents
 
 % --------------------------------------------------------------------------------
 % END TITLE
@@ -140,10 +141,11 @@
 
 \fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
 
+
 % --------------------------------------------------------------------------------
 % BODY
 % --------------------------------------------------------------------------------
-\section{Log Entries}
+\section{LOGBOOK \#1 START}
 
 \logbookentry{Lab 1 Entry}{January 20, 2025}
 Received the board, soldered pins to the board and ensured that the board was working and no short circuits were present.
@@ -198,6 +200,7 @@ A more compact device for the skip could be used, where a switch can be used to 
 
 The downside I can see with this is that the skip would need to swap between the two sweepers, which could be a bit cumbersome at times. However, the size reduction could be worth it, and reduced cost of the device. It also will have less LEDs so power consumption could be reduced as well.
 
+\section{LOGBOOK \#2 START}
 \logbookentry{Design Review 1 Reflection}{February 3, 2025}
 After the feedback of the initial design review, we have altered our design. Our big oversight was the huge amount of granularity we had in our design. Coming up with multiple sweeping speeds is unecessary and we have learnt that there is really only 3 levels, sweep hard, clean the ice and stop. Outside of this, the curlers will know what to do.
 
@@ -306,12 +309,160 @@ The bill of materials with sources for the PCB we designed as follows:
 \end{table}
 
 The OLED screen was sourced from waveshare and is of the same specification as the one used in the PCB. It is a 1.54 inch OLED screen with a resolution of 128x64 pixels with an I$^2$C interface. Other parts were sourced from DigiKey, and were picked to fit the footprint on the PCB and the requirements of the board.
+\newpage
+\section{LOGBOOK \#3 START}
+\logbookentry{Design Idea - Message Encoding}{February 17, 2025}
+\autoref{fig:msg_encoding} shows how each message would be displayed on the ring. Colors and position of the LEDs are used to indicate the message. Common colors are used, as green to sweep as it normally signals go, red to stop, and orange to clean. For the curl and line commands, the right and left halves are lit up respectively. For curl we use the color blue and yellow for, which can be easily differentiated by the sweepers. 
 
+One potential problem is that depending on the LEDs, orange and yellow may be hard to differentiate, so we may need to change the colors for the line and clean commands.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.35\textwidth]{msg_encoding.png}
+    \caption{Message encoding on the ring}
+    \label{fig:msg_encoding}
+\end{figure}
+
+\logbookentry{Design Idea - Sweeper and Skip Device}{February 20, 2025}
+\autoref{fig:skip_device} shows a potential design for a more refined skip device. It is a circular device with 5 buttons on the front and an LED ring around the edge. It would have a hook at the top to allow for a lanyard or string to be attached. 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.35\textwidth]{skip_device.png}
+    \caption{Skip device design}
+    \label{fig:skip_device}
+\end{figure}
+
+For the receiver side, the sweepers device could be similar to the curling timers that get attached onto the brooms. The idea is to have the device that can be positioned at various lengths on the broom, and can be easily seen by the sweepers. The led ring wold be angled slightly towards the sweeper to make it easier to see. Similar design concept to \autoref{fig:curling_timer}, found on the internet.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.35\textwidth]{curling timer.png}
+    \caption{Curling timer design}
+    \label{fig:curling_timer}
+\end{figure}
+
+\logbookentry{Design Idea - Sweeper device sketch}{Feb 22, 2025}
+
+\autoref{fig:sweeper_device} shows a rough sketch of the sweeper device. As previously described, it would be a device that can be attached to the broom and would have an LED ring that would light up based on the command from the skip. 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.35\textwidth]{sweeper_device.png}
+    \caption{Sweeper device sketch}
+    \label{fig:sweeper_device}
+\end{figure}
+
+Alternatively, a plastic clip could be used, instead of straps to attach the device to the broom, however this is not a very important detail at the moment. The main focus is to have a device that can be easily attached to the broom and can be easily seen by the sweepers.
+
+
+\logbookentry{Lab 3}{February 24, 2025}
+Lab 3 consisted of implementing power saving measures on the ESP32 with the joystick from lab 2. The goal was to see a significant improvement in the average current consumption with the power saving measures implemented. This was achieved by putting the ESP32 into a light sleep instead of a blocking delay, reducing the CPU clock frequency and WiFi power.
 
  
+\textbf{Light Sleep}
+
+Since the required transmition rate was every 150ms, a majority of the time was spent doing nothing, about 145ms of waiting and 5ms of processing. This was a perfect use case for light sleep, as the ESP32 could go into a this low-power idle state and wake up every 150ms to transmit the data. The delay was set to 145ms and once transmitted, the wifi was turned off and the ESP32 went into light sleep.
 
 
+\textbf{Reducing CPU Clock Frequency}
 
+Testing the power consumption at different CPU frequencies, it was found that the lowest frequency at which the radio was also operational showed the lowest power consumption. The frequency was set to 80MHz, which was the lowest frequency at which the radio was operational.
+
+\textbf{Reducing WiFi Power}
+
+The WiFi power was reduced to the lowest setting, which reduced the total power consumption of the ESP32.
+
+\newpage
+\textbf{Results}
+
+The results of the power saving measures are shown in \autoref{fig:power_consumption}. The baseline power consumption was around 129.44mA, and with the power saving measures implemented, the power consumption was reduced to around 16.21mA. This was a significant improvement in power consumption and showed that the power saving measures were effective.
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{baseline.png}
+        \caption{Baseline}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{2nd benchmark.png}
+        \caption{Light Sleep}
+    \end{subfigure}    
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{3rd benchmark.png}
+        \caption{Reduced CPU Frequency + Light Sleep + Reduced WiFi Power}
+    \end{subfigure}
+    \caption{Current consumption}
+    \label{fig:power_consumption}
+\end{figure}
+
+We will calculate the worst-case scenario for power consumption on our device. We have some push buttons which are negligible, a 12-LED ring which will consume 30mA per LED at max brightness, and 1 mA on idle. 
+
+The sender will include the 12-led ring which gives us an idle power consumption of 12mA, and adding a little bit more for the light-sleep mode, we can assume roughly 15mA on idle. When a push button is pressed, the LEDs will light up and the message will be sent to the receiver. Assuming all LEDs are lit up, and using only 1 channel at half brightness, that is a single color (r, g or b) at 50\% brightness, we can calculate the power consumption as follows:
+\begin{align*}
+    \text{LED Power} &= 12\text{ LEDs} \times 10\text{ mA / LED Channel} \times{1 \text{ Channel}} \times 0.5\text{ Brightness} = 60\text{ mA} \\
+\end{align*}
+
+Since we only transmit when a button is pressed, the acive power consumption will be slightly higher than 60mA, so we can assume around 65mA, which would include the power consumption of the ESP32 and the radio to transmit the signal.
+
+On the receiver side, we only have the 12-LED ring. Without any complex power-saving measures, the receiver will continously listen for messages and light up the LEDs. This would have the idle power consumption of 30-35mA, and when a message is received, the LEDs will light up. Assuming the same power consumption for the LEDs and slightly higher for actively listening for messages, we can assume around 75mA.
+
+The reason for this 30-35mA idle consumption on the receiver is that we are always listening. To get past this limit, we would need to implement a synchronization method so that the receiver can sleep when it is not expecting a message. This would require something like a handshake protocol to synchronize the time and also utlize a consistent message sending rate.
+
+If we de-age the LiPo battery to 80\% of its capacity, we can calculate the battery life as follows:
+\begin{align*}
+    \text{Sender Battery Life} &= \frac{500 \text{ mAh} \times 0.8}{65\text{ mA}} = 6.15\text{ hours} \\
+    \text{Receiver Battery Life} &= \frac{500 \text{ mAh} \times 0.8}{75\text{ mA}} = 5.33\text{ hours}
+\end{align*}
+
+This is the worst-case scenario where the device is continously transmitting and receiving messages. In a real-world scenario, the battery life would be much longer as the device would not be continously transmitting and receiving messages. The following plot shows the battery life of the device with various active percentages.
+
+We plot the following equation, where a = active percentage:
+\begin{align*}
+    \text{Sender Battery Life} = \frac{500 \text{ mAh} \times 0.8}{a \cdot 65 \text{mA} + 15 \text{mA} (1-a)} \text{ hours} \\
+    \text{Receiver Battery Life} = \frac{500 \text{ mAh} \times 0.8}{a \cdot 75 \text{mA} + 35 \text{mA} (1-a)} \text{ hours} \\
+\end{align*}
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{battery_life.png}
+    \caption{Battery life of the device}
+    \label{fig:battery_life}
+\end{figure}
+
+If we assumed that it would be active 50\% of the time, we get a battery life of 10 hours on the sender and 7.27 hours on the receiver. This is a more realistic scenario where the device would not be continously transmitting and receiving messages.
+
+\newpage
+\logbookentry{3D Design Idea}{February 28, 2025}
+A 3D case was made for the idea in \autoref{fig:skip_device}. It would be a small hand-held circular device with 5 buttons on the front and an LED ring around the edge. \autoref{fig:3d_design} shows the design of the device. An addition to this design is to add a hole on the side for a powerswitch, and depending on the battery type, a charging port. If a non-rechargable battery is used, then the two halves can be twisted open like a screw. A ring for a lanyard is also present at the top of the device.
+
+\begin{figure}[ht!]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{3d_design.png}
+        \caption{Angled view}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.30\textwidth}
+        \includegraphics[width=\textwidth]{3d_design_2.png}
+        \caption{Top view}
+    \end{subfigure}
+    \caption{3D design of the device}
+    \label{fig:3d_design}
+\end{figure}
+
+
+\logbookentry{Lab 3 - Optimizations}{March 4, 2025}
+Previously, the way the ESP-32 went to sleep was not optimized. It went to sleep after a fixed delay which caused issues when the data was not properly received. To ensure the sleep was done at the proper time, a callback was used to set off a flag when the data was succesfully transmitted. Once the flag was set, the ESP32 WiFi would be turned off and the light sleep would start with a calculated sleep time.
+
+The sleep time is also now dynamic, where we find the amount of time processing and sending takes and subtract that from the total time we want to sleep. This ensures that the ESP32 wakes up at the proper time to send the data. That is:
+\begin{align*}
+    \text{Sleep Time} = 150\text{ms} - (t_{\text{end}} - t_{\text{start}})
+\end{align*}
+Where $t_{\text{end}}$ is the time the data was received and $t_{\text{start}}$ is when the esp initally Woke up. These times are found by utilizing the \texttt{millis()} function.
+
+The results of this is shown in \autoref{fig:optimized_sleep}. This was also tested on a different board so the results are not directly comparable to the previous results, but were still significant. The power consumption was reduced to around 9.17 mA, which was a significant improvement over the previous results.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.70\textwidth]{4th benchmark.png}
+    \caption{Current consumption with optimized sleep}
+    \label{fig:optimized_sleep}
+\end{figure}
 
 
 
@@ -320,3 +471,5 @@ The OLED screen was sourced from waveshare and is of the same specification as t
 % --------------------------------------------------------------------------------
 
 \end{document}
+
+

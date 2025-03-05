@@ -3,8 +3,6 @@ package lab3.b01.RajdeepGill.logic;
 import lab3.b01.RajdeepGill.entity.Event;
 import lab3.b01.RajdeepGill.entity.Message;
 import lab3.b01.RajdeepGill.entity.Packet;
-import java.util.Vector;
-import java.util.Enumeration;
 import java.io.*;
 
 public abstract class NetworkSimulator
@@ -33,8 +31,11 @@ public abstract class NetworkSimulator
     private OSIRandom rand;
 
     private int nSim;
+    @SuppressWarnings("unused")
     private int nToLayer3;
+    @SuppressWarnings("unused")
     private int nLost;
+    @SuppressWarnings("unused")
     private int nCorrupt;
     private double time;
     

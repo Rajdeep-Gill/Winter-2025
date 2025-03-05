@@ -18,7 +18,6 @@ public class Project
 	    int windowsize = -1;
 	    double timeout = -1;
         String buffer = "";
-        File outputfile = new File("OutputFile");
         BufferedReader stdIn = new BufferedReader(
                                    new InputStreamReader(System.in));
                                    

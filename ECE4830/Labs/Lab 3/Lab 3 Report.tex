@@ -35,8 +35,8 @@
 \def\partner{Daniyal Hasnain (7942244)}
 \def\course{ECE 4830}
 \def\labsection{B03}
-\def\labno{2}
-\def\title{Lab 2}
+\def\labno{3}
+\def\title{Lab 3}
 
 % -- Styling for code snippets --
 \lstset{
@@ -148,8 +148,65 @@
 
 \section{Problem 1}
 
-\section{Problem 2}
+a) To effectively use the Fourier Transform to classify each sound as Gear 1 or 2, we can work with the decibel scale because it factors in volume changes; any volume change will only shift the output up or down, maintaining all proportions otherwise. In other words, we plot the magnitude in dB of the two \textit{FFTs}, and distinguish distinct properties of the two gears.
 
+The plot below shows the \textit{FFT} of the given gear examples:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{FFT in dB (44.1kHz).png}
+    \caption{The FFT of gear 1 and 2 in decibels, sampling at 44.1kHz.}
+    \label{fig:fft_44.1kHz}
+\end{figure}
+
+The above plot shows a similar trend for both gears from 0 to 10kHz: both gears start at most at 50 dB and steadily decline with noticeable overlap. The primary distinguishing factor is the band running from 10kHz to 15kHz. Here, we see that gear 2 continues to decline, plateauing to -20 dB, whereas gear 1 has a decaying oscillation-like behaviour that strongly differs from gear 2. With this in mind, our technique involves \textbf{using a band-pass filter that attenuates all frequencies outside the 10k-15kHz range}, focusing the observed behaviour for classification.
+
+\vspace{1cm}
+
+b) Yes, we can reduce the sampling rate and not use \( F_s = 40000\) Hz. Based on the band-pass proposed in part (a), we suggest a sampling frequency that satisfies the Nyquist Criterion. To retain all key information, we set:
+
+\[
+F_{\text{max}} = 15000 \text{ Hz} \implies F_s \geq 2 \times 15000 = 30000 \text{ Hz}
+\]
+
+To provide a safer margin and ensure no aliasing effects, we choose:
+
+\[
+F_s = 32000 \text{ Hz} = \textbf{32 kHz}
+\]
+
+This sampling rate effectively captures all relevant frequencies based on the solution developed in part (a). 
+
+We now proceed to plot the \textit{FFT} of both examples once more, this time, sampling at our suggested frequency:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{FFT in dB (32kHz).png}
+    \caption{The FFT of gear 1 and 2 in decibels, sampling at 32kHz.}
+    \label{fig:enter-label}
+\end{figure}
+
+As expected, we see the same output based on our plot in part (a) but with a left shift in the frequency axis. Due to this horizontal shift, \textbf{we must also shift our band-pass to the 6k-11kHz range}  which can be done by altering the impedance and capacitance of the RLC circuit. This is the only change we need to implement in order to use the solution from part (a).
+
+\section{Problem 2}
+Plotting out the frequency spectra for the first unltrasound scan from samples 0 to 200 and then its subsequent echos from samples 201 to 800, we see the following results.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{p2_1.png}
+    \caption{Frequency spectra of the first scan and echos}
+\end{figure}
+
+Since we are not given a sample time, or sampling frequency, we range our frequency axis from 0 to 1. We can then see that between 0.3 and 0.7 we have a difference between the first scan and the echos. Filtering this using a band pass filter will allow us to mitigate the echos and only focus on the first scan.
+
+This will also remove the DC term, so we can re-add the average of the first scan to the filtered signal to get the desired output.
+
+Below we can see the signal before and after filtering:
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.5\textwidth]{p2_2.png}
+    \caption{Signal before and after filtering}
+\end{figure}
 \section{Problem 3}
 
 The given fourier transform is a triangular function defined as follows:
@@ -248,9 +305,23 @@ Given the output $y(n)$ in the frequency domain:
         Y(\omega) &= e^{-j2\pi \omega} + \frac{d}{d\omega}1 \\
         Y(\omega) &= e^{-j2\pi \omega} \\
     \end{align*}
-    The inverse fourier transform of $e^{-j2\pi \omega}$ is $\delta(n-2\pi)$. This means that the response of the system to the input $x(n) = \delta(n)$ is $\boxed{\delta(n-2\pi)}$.
     
-    However, since the shift is by $2\pi$, and we are in the discrete domain, the response is $y(n) = 0$.
+    From $Y(\omega)$, we can now compute the inverse fourier transform to find the impulse response of the system:
+    \begin{align*}
+        y(n) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{-j2\pi \omega} e^{j\omega n} d\omega \\
+        y(n) &= \frac{1}{2\pi} \int_{-\pi}^{\pi} e^{jw(n-2\pi)} d\omega \\
+        &= \frac{1}{2\pi} \left(
+            \frac{e^{j\omega(n-2\pi)}}{j(n-2\pi)}
+        \right) \Bigg|_{-\pi}^{\pi} \\
+        &= \frac{1}{2\pi} \left(
+            \frac{e^{j\pi(n-2\pi)} - e^{-j\pi(n-2\pi)}}{j(n-2\pi)}
+        \right) \\
+        &= \frac{1}{2\pi} \left(
+            \frac{j2\sin(\pi(n-2\pi))}{j(n-2\pi)}
+        \right) \\
+        &= \frac{\sin(\pi(n-2\pi))}{\pi(n-2\pi)} \\
+        y(n) &= \text{sinc}(n-2\pi) \\
+    \end{align*}
 
 
     \item \textit{What is the difference equation in time of the system?}
@@ -281,23 +352,13 @@ Given the output $y(n)$ in the frequency domain:
 
     Due to the presence of the $n$ term in the second equation, the system is not time-invariant.
 
-    We see that the impulse response of the system is $\delta(n-2\pi)$ from part (a). This means that the system is stable as:
+    To check for stability, we can integrate the impulse response to see if it is bounded.
     \begin{align*}
-        \sum_{n=-\infty}^{\infty} |\delta(n-2\pi)| = 0 < \infty
+        \int_{-\infty}^{\infty} |y(n)| dn &= \int_{-\infty}^{\infty} |\text{sinc}(n-2\pi)| dn \\
+        = \infty
     \end{align*}
+    Since the impulse response does not have a finite integral, the system is not stable.
 \end{enumerate}
-
-
-We are given:
-\begin{align*}
-    Y(\omega) = e^{-j2\pi \omega}X(\omega) + \frac{dX(\omega)}{d\omega}
-\end{align*}
-
-Would it be better to interpret it as frequency instead of angular frequency?
-\begin{align*}
-    Y(f) = e^{-j2\pi f}X(f) + \frac{dX(f)}{df}
-\end{align*}
-
 
 % --------------------------------------------------------------------------------
 % END BODY
