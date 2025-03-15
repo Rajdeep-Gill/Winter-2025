@@ -1,0 +1,147 @@
+Enter number of messages to simulate (> 0): [5000] 25
+Enter packet loss probability (0.0 for no loss): [0.0] 0.1
+Enter packet corruption probability (0.0 for no corruption): [0.0] 0.1
+Enter average time between messages from sender's layer 5 (> 0.0): [50] 200
+Enter window size (> 0): [8]
+Enter retransmission timeout (>0.0) [15.0]
+Enter trace level (>= 0): [0] 1
+Enter random seed: [42]
+[232.92947172460097][A] Sending packet 0 Base is 0
+toLayer3: packet being lost
+[247.92947172460097][A] Timer interrupt, resending 1 packets
+[247.92947172460097][A] Resending packet 0
+toLayer3: packet being lost
+[262.92947172460094][A] Timer interrupt, resending 1 packets
+[262.92947172460094][A] Resending packet 0
+toLayer3: packet being corrupted
+[269.4197820978423][B] Received in-order packet 0
+[275.46870326853235][A] Corrupted ACK received
+[277.92947172460094][A] Timer interrupt, resending 1 packets
+[277.92947172460094][A] Resending packet 0
+[283.1922971282082][B] Out of order packet 0, expected 1
+[288.6578264717551][A] Received ACK for packet 0 Base is now 1
+[440.858180486465][A] Sending packet 1 Base is 1
+[442.7994628742332][B] Received in-order packet 1
+[446.89275795770135][A] Received ACK for packet 1 Base is now 2
+[627.2530289620655][A] Sending packet 2 Base is 2
+toLayer3: packet being corrupted
+[635.8357493820002][B] Corrupted packet received
+[642.2530289620655][A] Timer interrupt, resending 1 packets
+[642.2530289620655][A] Resending packet 2
+toLayer3: packet being lost
+[651.0109866634114][B] Received in-order packet 2
+[657.2530289620655][A] Timer interrupt, resending 1 packets
+[657.2530289620655][A] Resending packet 2
+[662.3120517593921][B] Out of order packet 2, expected 3
+[668.727378154851][A] Received ACK for packet 2 Base is now 3
+[938.0657368694112][A] Sending packet 3 Base is 3
+[944.8647724845118][B] Received in-order packet 3
+[952.8036744285408][A] Received ACK for packet 3 Base is now 4
+[1107.211523789178][A] Sending packet 4 Base is 4
+[1111.7143467513047][B] Received in-order packet 4
+[1118.1090731528673][A] Received ACK for packet 4 Base is now 5
+[1120.554216132084][A] Sending packet 5 Base is 5
+[1126.975310525834][B] Received in-order packet 5
+[1129.9023712881863][A] Received ACK for packet 5 Base is now 6
+[1287.5148777733696][A] Sending packet 6 Base is 6
+toLayer3: packet being lost
+[1288.6972563859981][B] Received in-order packet 6
+[1302.5148777733696][A] Timer interrupt, resending 1 packets
+[1302.5148777733696][A] Resending packet 6
+toLayer3: packet being corrupted
+[1310.6345103305155][B] Corrupted packet received
+[1313.0158085879086][A] Received ACK for packet 6 Base is now 7
+[1611.01107821894][A] Sending packet 7 Base is 7
+[1614.8341013824886][B] Received in-order packet 7
+[1624.2526322214424][A] Received ACK for packet 7 Base is now 8
+[1855.9526352732935][A] Sending packet 8 Base is 8
+[1859.236762596515][B] Received in-order packet 8
+[1860.6501358073674][A] Received ACK for packet 8 Base is now 9
+[2141.911069063387][A] Sending packet 9 Base is 9
+toLayer3: packet being lost
+[2156.911069063387][A] Timer interrupt, resending 1 packets
+[2156.911069063387][A] Resending packet 0
+[2159.2105166783654][B] Received in-order packet 9
+[2162.0919827875605][A] Received ACK for packet 9 Base is now 10
+[2214.8136844996493][A] Sending packet 10 Base is 10
+[2222.2466505935854][B] Received in-order packet 10
+[2224.952330088199][A] Received ACK for packet 10 Base is now 11
+[2421.289712210456][A] Sending packet 11 Base is 11
+[2430.2270271919924][B] Received in-order packet 11
+[2432.3809015167703][A] Received ACK for packet 11 Base is now 12
+[2646.076845606861][A] Sending packet 12 Base is 12
+toLayer3: packet being lost
+[2649.8817407757806][B] Received in-order packet 12
+[2661.076845606861][A] Timer interrupt, resending 1 packets
+[2661.076845606861][A] Resending packet 3
+[2667.708334604938][B] Out of order packet 3, expected 13
+[2671.905178991058][A] Received ACK for packet 12 Base is now 13
+[2745.542771691031][A] Sending packet 13 Base is 13
+toLayer3: packet being corrupted
+[2755.4466383861813][B] Corrupted packet received
+[2760.542771691031][A] Timer interrupt, resending 1 packets
+[2760.542771691031][A] Resending packet 4
+[2767.621967223121][B] Received in-order packet 13
+[2775.542771691031][A] Timer interrupt, resending 1 packets
+[2775.542771691031][A] Resending packet 4
+[2777.37449262978][A] Received ACK for packet 13 Base is now 14
+[2781.560930204169][B] Out of order packet 4, expected 14
+[3113.38847010712][A] Sending packet 14 Base is 14
+[3119.8661458174383][B] Received in-order packet 14
+[3125.2613605151523][A] Received ACK for packet 14 Base is now 15
+[3157.725760673849][A] Sending packet 15 Base is 15
+toLayer3: packet being lost
+[3172.725760673849][A] Timer interrupt, resending 1 packets
+[3172.725760673849][A] Resending packet 6
+[3176.267799920652][B] Received in-order packet 15
+[3180.0540177617727][A] Received ACK for packet 15 Base is now 16
+[3421.0760826441237][A] Sending packet 16 Base is 16
+[3428.1808221686456][B] Received in-order packet 16
+[3434.4192632831814][A] Received ACK for packet 16 Base is now 17
+[3552.4643696401868][A] Sending packet 17 Base is 17
+[3561.2253486739705][B] Received in-order packet 17
+[3562.6856898709066][A] Received ACK for packet 17 Base is now 18
+[3626.5755180516985][A] Sending packet 18 Base is 18
+[3635.3568224127935][B] Received in-order packet 18
+[3641.5755180516985][A] Timer interrupt, resending 1 packets
+[3641.5755180516985][A] Resending packet 0
+[3642.789239173559][A] Received ACK for packet 18 Base is now 19
+[3644.8486587115085][B] Out of order packet 0, expected 19
+[3894.9797051911987][A] Sending packet 19 Base is 19
+[3897.5153660695214][B] Received in-order packet 19
+[3900.626178777429][A] Received ACK for packet 19 Base is now 20
+[4262.483596301157][A] Sending packet 20 Base is 20
+[4269.88360240486][B] Received in-order packet 20
+[4277.483596301157][A] Timer interrupt, resending 1 packets
+[4277.483596301157][A] Resending packet 2
+toLayer3: packet being lost
+[4279.858333079013][A] Received ACK for packet 20 Base is now 21
+[4315.073091830196][A] Sending packet 21 Base is 21
+toLayer3: packet being corrupted
+[4323.413556321911][B] Corrupted packet received
+[4330.073091830196][A] Timer interrupt, resending 1 packets
+[4330.073091830196][A] Resending packet 3
+toLayer3: packet being corrupted
+[4339.841273232217][B] Received in-order packet 21
+[4341.956694235055][A] Corrupted ACK received
+[4345.073091830196][A] Timer interrupt, resending 1 packets
+[4345.073091830196][A] Resending packet 3
+toLayer3: packet being corrupted
+[4347.579912717064][B] Corrupted packet received
+[4356.53068636128][A] Received ACK for packet 21 Base is now 22
+[4479.311502426222][A] Sending packet 22 Base is 22
+toLayer3: packet being corrupted
+[4481.7304300057995][B] Corrupted packet received
+[4494.311502426222][A] Timer interrupt, resending 1 packets
+[4494.311502426222][A] Resending packet 4
+[4502.151524399549][B] Received in-order packet 22
+[4507.117984557635][A] Received ACK for packet 22 Base is now 23
+[4818.970305490281][A] Sending packet 23 Base is 23
+[4824.249610889005][B] Received in-order packet 23
+[4832.404950102238][A] Received ACK for packet 23 Base is now 24
+[4982.818079165015][A] Sending packet 24 Base is 24
+toLayer3: packet being corrupted
+[4985.957457197792][B] Corrupted packet received
+toLayer3: packet being corrupted
+[4993.158330027163][A] Corrupted ACK received
+Simulator terminated at time 4995.892208624532

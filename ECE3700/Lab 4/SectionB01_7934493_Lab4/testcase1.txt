@@ -1,0 +1,91 @@
+-- * Network Simulator v1.0 * --
+Enter number of messages to simulate (> 0): [5000] 25
+Enter packet loss probability (0.0 for no loss): [0.0]
+Enter packet corruption probability (0.0 for no corruption): [0.0]
+Enter average time between messages from sender's layer 5 (> 0.0): [50] 200
+Enter window size (> 0): [8]
+Enter retransmission timeout (>0.0) [15.0]
+Enter trace level (>= 0): [0] 1
+Enter random seed: [42]
+[232.92947172460097][A] Sending packet 0 Base is 0
+[239.41978209784236][B] Received in-order packet 0
+[245.46870326853238][A] Received ACK for packet 0 Base is now 1
+[440.858180486465][A] Sending packet 1 Base is 1
+[446.1210058900723][B] Received in-order packet 1
+[451.58653523361914][A] Received ACK for packet 1 Base is now 2
+[627.2530289620655][A] Sending packet 2 Base is 2
+[629.1943113498337][B] Received in-order packet 2
+[633.2876064333018][A] Received ACK for packet 2 Base is now 3
+[938.0657368694112][A] Sending packet 3 Base is 3
+[946.648457289346][B] Received in-order packet 3
+[948.158238471633][A] Received ACK for packet 3 Base is now 4
+[1107.211523789178][A] Sending packet 4 Base is 4
+[1115.969481490524][B] Received in-order packet 4
+[1120.554216132084][A] Sending packet 5 Base is 4
+[1121.0285042878506][A] Received ACK for packet 4 Base is now 5
+[1126.969542527543][B] Received in-order packet 5
+[1133.7685781426435][A] Received ACK for packet 5 Base is now 6
+[1287.5148777733696][A] Sending packet 6 Base is 6
+[1295.4537797173987][B] Received in-order packet 6
+[1299.9566026795253][A] Received ACK for packet 6 Base is now 7
+[1611.01107821894][A] Sending packet 7 Base is 7
+[1617.4058046205025][B] Received in-order packet 7
+[1623.8268990142524][A] Received ACK for packet 7 Base is now 8
+[1855.9526352732935][A] Sending packet 8 Base is 8
+[1858.8796960356458][B] Received in-order packet 8
+[1860.0620746482743][A] Received ACK for packet 8 Base is now 9
+[2141.911069063387][A] Sending packet 9 Base is 9
+[2150.030701620533][B] Received in-order packet 9
+[2152.411999877926][A] Received ACK for packet 9 Base is now 10
+[2214.8136844996493][A] Sending packet 10 Base is 10
+[2218.636707663198][B] Received in-order packet 10
+[2228.055238502152][A] Received ACK for packet 10 Base is now 11
+[2421.289712210456][A] Sending packet 11 Base is 11
+[2424.5738395336775][B] Received in-order packet 11
+[2425.98721274453][A] Received ACK for packet 11 Base is now 12
+[2646.076845606861][A] Sending packet 12 Base is 12
+[2648.376293221839][B] Received in-order packet 12
+[2651.2577593310343][A] Received ACK for packet 12 Base is now 13
+[2745.542771691031][A] Sending packet 13 Base is 13
+[2752.975737784967][B] Received in-order packet 13
+[2755.6814172795803][A] Received ACK for packet 13 Base is now 14
+[3113.38847010712][A] Sending packet 14 Base is 14
+[3122.3257850886566][B] Received in-order packet 14
+[3124.4796594134345][A] Received ACK for packet 14 Base is now 15
+[3157.725760673849][A] Sending packet 15 Base is 15
+[3161.5306558427687][B] Received in-order packet 15
+[3168.162144840846][A] Received ACK for packet 15 Base is now 16
+[3421.0760826441237][A] Sending packet 16 Base is 16
+[3425.272927030244][B] Received in-order packet 16
+[3435.1767937253944][A] Received ACK for packet 16 Base is now 17
+[3552.4643696401868][A] Sending packet 17 Base is 17
+[3560.705954161199][B] Received in-order packet 17
+[3567.4643696401868][A] Timer interrupt, resending 1 packets
+[3567.4643696401868][A] Resending packet 8
+[3567.785149693289][A] Received ACK for packet 17 Base is now 18
+[3577.216895046846][B] Out of order packet 8, expected 18
+[3626.5755180516985][A] Sending packet 18 Base is 18
+[3636.1948301644948][B] Received in-order packet 18
+[3641.5755180516985][A] Timer interrupt, resending 1 packets
+[3641.5755180516985][A] Resending packet 0
+[3642.672505874813][A] Received ACK for packet 18 Base is now 19
+[3646.9707327494125][B] Out of order packet 0, expected 19
+[3894.9797051911987][A] Sending packet 19 Base is 19
+[3898.7659230323193][B] Received in-order packet 19
+[3905.870662556841][A] Received ACK for packet 19 Base is now 20
+[4262.483596301157][A] Sending packet 20 Base is 20
+[4268.722037415693][B] Received in-order packet 20
+[4277.483016449477][A] Received ACK for packet 20 Base is now 21
+[4315.073091830196][A] Sending packet 21 Base is 21
+[4316.533433027132][B] Received in-order packet 21
+[4325.314737388227][A] Received ACK for packet 21 Base is now 22
+[4479.311502426222][A] Sending packet 22 Base is 22
+[4486.743919186988][B] Received in-order packet 22
+[4490.0170598467985][A] Received ACK for packet 22 Base is now 23
+[4818.970305490281][A] Sending packet 23 Base is 23
+[4822.036622211373][B] Received in-order packet 23
+[4824.572283089696][A] Received ACK for packet 23 Base is now 24
+[4982.818079165015][A] Sending packet 24 Base is 24
+[4985.928891872922][B] Received in-order packet 24
+[4993.328897976624][A] Received ACK for packet 24 Base is now 25
+Simulator terminated at time 4995.892208624532
