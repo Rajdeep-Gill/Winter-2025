@@ -464,7 +464,78 @@ The results of this is shown in \autoref{fig:optimized_sleep}. This was also tes
     \label{fig:optimized_sleep}
 \end{figure}
 
+\newpage
+\section{LOGBOOK \#4 START}
 
+\logbookentry{Design Review \#2 Presentation}{March 8, 2025}
+Had a group meeting to help create and finalize the presentation. Discussed various power-saving measures and made changes to the design idea. We are now removing the LED ring on the skip device as the skip would not be paying much attention to the device and would be more focused on the game. With the extra space, we can space out the buttons more, which would make it easier to distinguish between the buttons
+
+Next step is to take the feedback from the presentation and implement it into the final design.
+
+\logbookentry{Lab 4}{March 10, 2024}
+We had picked to implement problems 1B and 2. During the lab session we were able to fully finish problem 1B and get started on problem 2.
+
+\textbf{Problem 1B}
+
+To tackle debouncing, we kept track of a few states for each button. The same process was done for the 3 different buttons, but the response to the button press was slightly different. The following steps were used to handle the debouncing. We first check if the current button state is different from the last button state. If it is, we are now going to check if the button stays at that state for a certain amount of time. If the new states remain the same for a period of time (for us, $> 50$ms) then we can assume that the button press is valid. Then we check when the button is released, and find out if it was a short or long press. This was simply done by checking the initial time the button was pressed and the time it was released. If the time was less than 500ms, it was a short press, otherwise it was a long press.
+
+A similar process was done for each button, but the response to the button press was different. Anytime we were in a debouncing period, we would light up led 3 despite which button was pressed.
+
+The output was similar to the provided output, and below is the sample output for our program:
+\begin{verbatim}
+    Button 1 pushed @ 4821 mS, Duration: 342 mS - Short! LED1 -> Off
+    Button 2 pushed @ 5224 mS, Duration: 652 mS - Long! LED2 -> Off
+    Button 3 pushed @ 5876 mS, Duration: 742 mS - Long! LED1/2 -> On
+    Button 1 pushed @ 6629 mS, Duration: 120 mS - Short! LED1 -> Off
+    Button 1 pushed @ 7302 mS, Duration: 139 mS - Short! LED1 -> Off
+    Button 1 pushed @ 7632 mS, Duration: 192 mS - Short! LED1 -> Off  
+\end{verbatim}
+
+We can utilize this debouncing method in our final project as the buttons are one of our HID devices. This will ensure that the buttons are not accidentally pressed and that the correct action is taken when the button is pressed. Another alternative is to utilize a library like the Bounce2 library, which helps make the code more readable and easier to implement.
+
+
+\logbookentry{Design Review \#2 Feedback and Implementation}{March 15, 2025}
+The code was finished for the skip and sweeper devices. Initially I had done a simple wake-up on button press for the skip and send the command to the sweeper. The sweeper would constantly be listening for messages and light up the LEDs based on the command. This worked as expected but the power consumption for constant listening was too high, averaging around 200mA with all LEDs on and active listening.
+
+Even with the larger 800mAh battery, the device would not last if we were to de-age the battery by just 20\%. As mentioned during the presentation, this method would not be ideal as the device would not last the full game. The sweepers device cannot stay on for the entire time and we would need to come up with a reliable way to send commands and sleep periodically to save power.
+
+\logbookentry{Design - Power Savings}{March 16, 2025}
+To help reduce the power consumption, we need to have it so the sweeper's device is not always listening. This was achieved by sending messages at a fixed interval. When the receiver is reset and reboots, we enter a state to constantly listen. The sender will send a message to the receiver to start the sending interval. The receiver will then start a timer of 80ms and go to sleep. After 80ms, the receiver will wake up and listen for a message, perform the action and then go back to sleep. Since messages are sent every 100ms, sleeping for 80ms will minimize the chances of missing a message and will help reduce the power consumption.
+
+On the sender's side, messages are sent every 100ms. The sender will be woken up by a button press, or a timer. If a button press is detected, the message is set to the corresponding command and is ready to be sent. Once the timer goes off, the message is sent and the sender goes back to sleep. 
+
+This Implementation was tested to ensure that the sender was sending messages at a rate of 10 messages / second, and the receiver was receiving messages at the same rate. After several minutes of it running, the rate of messages was consistent with the expexted rate. 
+
+As a result of this impmentation, power consumption was around 30mA on the sender and 50mA on the receiver. This was a significant improvement over the previous power consumption and would succesfully meet our requirements for the device. This should let the device last around 8 hours on a 500mAh battery, which is more than enough for a single game of curling.
+
+The next step is to test it with 2 and 3 sweepers to ensure that the messages are sent to all 2/3 at the same interval. This should be relatively easy to implement as we have the base code for a sender and receiver, and all we would need to add is a peer-pool and add the various mac addresses to the pool.
+
+Finally, we need to work on finishing the 3D design for the devices and hopefully get them printed. Another addition to consider is to potentially have a visual indicator to determine when the devices are all connected to the skip device, and possibly add a timeout for the LEDs to turn off after a certain period (maybe 30 seconds) of it staying on a singular command to save power.
+
+\logbookentry{Lab 4 - Problem 2}{March 17, 2025}
+\textbf{Problem 2}
+
+This problem dealt with OTA updates for the ESP32. We had utilized the ElegantOTA library to help solve this problem. The library was easy to use and allowed for OTA updates to be done with ease. It first requires the ESP32 to be connected to Wi-Fi and then starts a webserver on which the updates can be done. Uploading a build (.bin file) to the webserver will then flash the ESP32 with the new build.
+
+When the device is being setup, we check if a button is pressed on boot to enter the OTA mode. If the button is pressed, the device will enter the OTA mode and start the webserver. If the button is not pressed, the device will boot normally and start the program. 
+
+We can then upload a new build with a different version and reset the device and we see in the serial output, the device is updated with the new version, and the on-board LED will blink at a different interval to indicate the new version.
+
+We can utilize this in our final project for a few things. This can be to include different colors or patterns for the various commands. Encoding multiple button presses as a different command. If any future power saving measures are implemented, this can be used to update the devices with the new power saving measures.
+
+A security concern with this is that the device is open to anyone on the same network to upload a new build, which can be potentially harmful. To mitigate this, we would have to look at what security measures ElegantOTA offers, or utlize a different library which is more secure.
+
+\logbookentry{3D Design}{March 18, 2025}
+
+Finished the 3D design of the two devices as seen in \autoref{fig:3d_render}. The skip device no longer has the LED ring and only has the 5 buttons on the front. The sweeper device remains the same. As disussed before, they would be a twist-open case, unless a different idea to open the case is thought of. The devices, taking the shape of a stopwatch, would be easy to hold and use during the game. It would also not be a distraction as stopwatches are commonly used in curling.
+
+Furthermore, from the feedback on the design review, the attachment for the sweeper device would need to be more secure. It would be better if it is secured at the bottom of the broom instead on the broom handle itself. If we were to attach it to the broom handle, an additional supporting device would need to be made to prevent it from flopping during the game.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{design_renders.png}
+    \caption{3D render of the skip (left) and sweeper (right) devices}
+    \label{fig:3d_render}
+\end{figure}
 
 % --------------------------------------------------------------------------------
 % END BODY
