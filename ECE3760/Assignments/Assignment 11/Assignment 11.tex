@@ -1,0 +1,203 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage{circuitikz}
+
+\usetikzlibrary{arrows, positioning}
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 3760}
+\def\labsection{A01}
+
+\def\labno{11}
+\def\title{Assignment 11: Diffie-Hellman Key Exchange}
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\scriptsize,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Assignment \labno}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+
+\section{Key Exchange Algorithm}
+
+We will pick a $q > 29$, so lets pick $q=41$. We first check if $q$ is prime, that is:
+\begin{align*}
+    2^{40} &\bmod 41 = 1 \\
+    &\implies 2^{40} \equiv 1 \pmod{41} \\
+    & \implies q \text{ is prime}
+\end{align*}
+We let $p = 2q + 1 = 83$. We then check if $p$ is prime:
+\begin{align*}
+    2^{82} &\bmod 83 = 1 \\
+    &\implies 2^{82} \equiv 1 \pmod{83} \\
+    &\implies p \text{ is prime}
+\end{align*}
+
+Now, we pick a generator $g$ that meets the following condition. We will start with $g = 3$:
+\begin{align*}
+    g^{(p-1)/2} &\not\equiv 1 \pmod{p} \\
+    3^{(83-1)/2} &\bmod 83 = 41 \\
+    &\implies 3^{41} \not\equiv 1 \pmod{83} \\
+    &\implies g = 3
+\end{align*}
+
+So we can now share $g = 3$ and $p = 83$. Alice will now select a number $\textbf{a}$ from $2, 3, 4, \ldots, 81$ and Bob will select a number $\textbf{b}$ from $2, 3, 4, \ldots, 81$. Let Alice select $a = 5$ and Bob select $b = 7$ which they will keep secret. Then we calculate $A$ and $B$ to send to each other:
+\begin{align*}
+    A = g^a \bmod p = 3^5 \bmod 83 = 77 \\
+    B = g^b \bmod p = 3^7 \bmod 83 = 29
+\end{align*}
+
+
+Alice and Bob both receive $A$ and $B$ from each other. They then calculate the shared secret key:
+\begin{align*}
+    \text{Alice: } B^a \bmod p = 29^5 \bmod 83 = 23 \\
+    \text{Bob: } A^b \bmod p = 77^7 \bmod 83 = 23 \\
+    \text{In Binary: } 0001 \, 0111
+\end{align*}
+
+Now suppose we want to share a message $M = 11 = 1011$b from Alice to Bob. Alice first XORs the message with the key and transmits the result:
+\begin{align*}
+    \text{Encrypted Message: } 0000 \, 1011 \oplus 0001 \, 0111 = 0001 \, 1100
+\end{align*}
+
+On the receiving end, Bob will XOR the received message with the shared key to decrypt the message:
+\begin{align*}
+    \text{Decrypted Message: } 0001 \, 1100 \oplus 0001 \, 0111 = 0000 \, 1011
+\end{align*}
+
+The Encrypted message is visible to anyone who intercepts it, but without the shared key, which is calculated using the private numbers $a$ and $b$, the message is secure.
+
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
