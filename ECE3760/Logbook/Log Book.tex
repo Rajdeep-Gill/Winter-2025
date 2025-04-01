@@ -537,6 +537,39 @@ Furthermore, from the feedback on the design review, the attachment for the swee
     \label{fig:3d_render}
 \end{figure}
 
+\section{LOGBOOK \#5 START}
+
+\logbookentry{Printing Design and Modifications}{March 21, 2025}
+
+The 3D design was printed but the dimensions were slightly small. The button holes were too narrow and the case was too tight for an ESP32 with all the parts to fit inside. The design was then modified by scaling everything to be 1.25x the size. The button holes were also enlarged to fit the actual dimensions of the buttons. This new design was succesfully printed and all parts properly fit. The parts are now left to be put together and assembled.
+
+\logbookentry{Soldering and Assembly}{March 26, 2025}
+The Sweeper's device was soldered and assembled. The LED ring was glued onto the case and the ESP32 was taped down to the lid of the case. The header-pins of the ESP32 were first removed and then direction connections were made to the LED ring. A foam board was also placed on the ESP32 to help keep the battery in place.
+
+Hot glue proved to be a very useful tool in this prototyping stage. In a final design, we would implement standoffs and as screw to hold the ESP32 in place. The LED ring could also have a recessed insert to help keep it in place with  minimal gluing required.
+
+\logbookentry{Soldering and Assembly - Part 2}{March 28, 2025}
+The Skip device was also soldered and assembled but proved to be a bit more difficult. This required more wires and parts to fit in the same case as compared to the sweeper device.
+
+All the buttons were connected in series to ground and the ESP32, and individual wires were connected from the ESP32's GPIO pins to the buttons. This was all tested to ensure every button worked and the correct command was sent to the receiver. 
+
+One oversight of this design is the lack of access to easily turn on and off the device. A hole should've been made on the side of the devices to allow for a power switch to be added. This would make it much easier than unscrewing the device to plug/unplug the battery.
+
+Another improvement for the design could've been to add recessed holes for the buttons to fit into. As currently they were eyeballed and glued into place, which is not the most reliable method as they are not exactly centered in the holes. Aswell, on a final design standoffs should be included to help keep the ESP32 in place, instead of taping it down. This however is a good temporary solution for our prototype and should be sufficient for our needs.
+
+\logbookentry{Skip Code Refinement}{March 29, 2025}
+As discussed in a past logbook entry, the skip device is sending commands at 10 commands / second. And this continues even when the skip is not pressing any buttons. This means if the devices are left on, the last button pressed is sent every 100ms, and the LEDs will stay on until the battery dies.
+
+To help alleviate this, we are now keeping track of the last command that is sent and how many times in a row it is sent for. If the count of the last command is greater than 600, which is 1 minute of continously sending the same command, we switch the command to the STOP command. This will then turn of the LEDs on the sweeper device and help conserve power.
+
+\logbookentry{Design Mold Creation}{March 30, 2025}
+A mold for the skip device was designed in Fusion 360. Since the device has 2 parts, a lid and a base part, there were two seperate molds created. The lid required a two-part mold which was designed to be easily removed. The base part was designed as a three part mold due to the ring hook on one side and the threading of the screws around the device. 
+
+More is discussed in the physical prototype assignment.
+
+Lastly, since the device is now completed, we can test the range, battery life and other features to see if they meet our design specifications presented in the beginning of the project.
+
+
 % --------------------------------------------------------------------------------
 % END BODY
 % --------------------------------------------------------------------------------
