@@ -544,7 +544,7 @@ Furthermore, from the feedback on the design review, the attachment for the swee
 The 3D design was printed but the dimensions were slightly small. The button holes were too narrow and the case was too tight for an ESP32 with all the parts to fit inside. The design was then modified by scaling everything to be 1.25x the size. The button holes were also enlarged to fit the actual dimensions of the buttons. This new design was succesfully printed and all parts properly fit. The parts are now left to be put together and assembled.
 
 \logbookentry{Soldering and Assembly}{March 26, 2025}
-The Sweeper's device was soldered and assembled. The LED ring was glued onto the case and the ESP32 was taped down to the lid of the case. The header-pins of the ESP32 were first removed and then direction connections were made to the LED ring. A foam board was also placed on the ESP32 to help keep the battery in place.
+The Sweeper's device was soldered and assembled. The LED ring was glued onto the case and the ESP32 was taped down to the lid of the case. The header-pins of the ESP32 were first removed and then direction connections were made to the LED ring. A foam board was also placed on the ESP32 and th battery was glued to it to help keep it secure.
 
 Hot glue proved to be a very useful tool in this prototyping stage. In a final design, we would implement standoffs and as screw to hold the ESP32 in place. The LED ring could also have a recessed insert to help keep it in place with  minimal gluing required.
 
@@ -552,6 +552,17 @@ Hot glue proved to be a very useful tool in this prototyping stage. In a final d
 The Skip device was also soldered and assembled but proved to be a bit more difficult. This required more wires and parts to fit in the same case as compared to the sweeper device.
 
 All the buttons were connected in series to ground and the ESP32, and individual wires were connected from the ESP32's GPIO pins to the buttons. This was all tested to ensure every button worked and the correct command was sent to the receiver. 
+
+With both the skip and sweeper devices now fully assembled, we are pretty happy with how it turned out.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.45\textwidth]{device_assembled.jpeg}
+    \caption{Assembled Devices}
+    \label{fig:assembled_devices}
+\end{figure}
+
+
 
 One oversight of this design is the lack of access to easily turn on and off the device. A hole should've been made on the side of the devices to allow for a power switch to be added. This would make it much easier than unscrewing the device to plug/unplug the battery.
 
@@ -569,6 +580,8 @@ More is discussed in the physical prototype assignment.
 
 Lastly, since the device is now completed, we can test the range, battery life and other features to see if they meet our design specifications presented in the beginning of the project.
 
+\logbookentry{On/Off Switch Installation}{March 31, 2025}
+A switch was installed to more easily turn the device on and off. This was done by soldering a slide switch in series with the battery and the ESP32. This still requires us to open the device to turn it on and off, but it is much easier unplugging the battery and plugging it back in.
 
 % --------------------------------------------------------------------------------
 % END BODY
