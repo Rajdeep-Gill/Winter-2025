@@ -1,0 +1,215 @@
+\documentclass{article}
+\usepackage[margin=2.5cm, top=4cm, headheight=25pt]{geometry}
+\usepackage{amsmath, amssymb, enumitem, fancyhdr, graphicx}
+\usepackage[indent=20pt]{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{url}
+\usepackage[most]{tcolorbox}
+\usepackage{lastpage}
+\usepackage{tikz}
+\usepackage{circuitikz}
+\usepackage{setspace}
+
+\doublespacing
+\usetikzlibrary{arrows, positioning}
+\tcbuselibrary{listingsutf8} % Support for lstlistings within tcolorbox
+
+\newtcolorbox[auto counter, number within=section]{question}[1][]{%
+    colframe=gray!80,                      % Dark gray frame
+    colback=gray!5,                       % Light gray background
+    coltitle=black,                        % Black title
+    title=\textbf{Question~\thetcbcounter}, % Bold title
+    fonttitle=\bfseries\large,             % Subtle title font size
+    rounded corners,                   % Slightly more rounded corners
+    boxrule=0.25mm,                         % Thinner border for a sleek look
+    enhanced,                              % Enhanced box features
+    attach boxed title to top left={xshift=2mm, yshift=-2mm},
+    boxed title style={colframe=gray!80, colback=gray!5, boxrule=0.25mm},
+    % Title styling
+    #1
+}
+
+\bibliographystyle{IEEEtran}
+\graphicspath{{./images/}}
+
+% -- Custom Variables --
+\def\me{Rajdeep Gill 7934493}
+\def\course{ECE 3760}
+\def\labsection{A01}
+
+\def\labno{}
+\def\title{Reflection and Post Mortem}
+% -- Styling for code snippets --
+\lstset{
+    basicstyle=\ttfamily\scriptsize,           % Basic font style
+    keywordstyle=\color{blue},            % Keywords color
+    commentstyle=\color{gray},            % Comments color
+    stringstyle=\color{teal},             % Strings color
+    numbers=left,                         % Line numbers on the left
+    numberstyle=\tiny\color{gray},        % Line number style
+    stepnumber=1,                         % Line number step
+    numbersep=10pt,                       % Space between line numbers and code
+    backgroundcolor=\color{lightgray!10}, % Background color
+    frame=single,                         % Adds a frame around the code
+    breaklines=true,                      % Line breaking for long lines
+    captionpos=b,                         % Caption position
+    showspaces=false,                     % Don't show spaces
+    showstringspaces=false                % Don't show spaces in strings
+}
+\renewcommand{\lstlistingname}{Code Snippet}
+
+\renewcommand{\arraystretch}{1.2} % For less-ugly tables
+\setlength\parindent{0pt}
+
+%----- Samples 
+% Questions:
+%   \begin{question}[title=Custom Question Title]
+%       Question details
+%   \end{question}
+
+% Tables:
+%   \begin{table}[htbp]
+%       \centering
+%       \caption{Table Caption}
+%       \begin{tabular}{ll}
+%           \toprule
+%           \textbf{Column 1} & \textbf{Column 2} \\
+%           \midrule
+%           Row 1 & Row 2 \\
+%           Row 3 & Row 4 \\
+%           \bottomrule
+%       \end{tabular}
+%   \end{table} 
+
+% Figures:
+%   Single figure:
+%       \begin{figure}[htbp]
+%           \centering
+%           \includegraphics[width=0.5\textwidth]{example-image}
+%           \caption{Figure Caption}
+%       \end{figure}
+%   Multiple figures:
+%       \begin{figure}[htbp]
+%           \centering
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-a}
+%               \caption{First subfigure}
+%           \end{subfigure}
+%           \begin{subfigure}[b]{0.5\textwidth}
+%               \includegraphics[width=\textwidth]{example-image-b}
+%               \caption{Second subfigure}
+%           \end{subfigure}
+%           \caption{Main figure}
+%       \end{figure}
+
+\begin{document}
+
+% --------------------------------------------------------------------------------
+% TITLE
+% --------------------------------------------------------------------------------
+
+\begin{center}
+    \huge \title
+
+    \vspace{2mm}
+    \hrule
+
+    \vspace{4mm}
+    \large \me
+
+    \vspace{2mm}
+    \large \course~\labsection
+
+    \vspace{2mm}
+    \today
+\end{center}
+
+\vspace{4mm}
+
+% --------------------------------------------------------------------------------
+% END TITLE
+% --------------------------------------------------------------------------------
+
+\newpage
+
+
+\vspace{1cm}
+\newpage
+
+\pagestyle{fancy}
+\fancyhead[L]{\large Reflection \& Post Morterm \labno}
+\fancyhead[R]{\large \me}
+
+\fancyfoot[C]{Page \thepage~of~\pageref{LastPage}}
+
+% --------------------------------------------------------------------------------
+% BODY
+% --------------------------------------------------------------------------------
+\section{Reflection and Post Mortem}
+
+\subsection{What went well?}
+
+The project was a success overall, ultimately receiving the award for the second-best design in the class. I learned a great deal about the engineering design process, especially as this was my first time working with CAD software and 3D modeling. It was incredibly satisfying to see our concept evolve from sketches to a fully functional, 3D-printed prototype.
+
+One unique aspect of this project was that it pushed us to optimize our code, something not done in courses. It was an interesting challenge to improve efficiency and reduce power consumption, especially given the constraints of our hardware.
+
+Another highlight was the opportunity to present our ideas in both team and class environments. Through design reviews and the final presentation, I gained valuable experience in communicating technical ideas, and found that there is a lot of room for growth. It was also the first course where we actively incorporated critical feedback from these reviews to improve our design, which made the process feel more iterative and realistic.
+
+\subsection{What went wrong?}
+
+The biggest challenge was team communication. I often found myself taking on a large portion of the work not out of frustration, but out of necessity. Despite efforts to coordinate tasks and share updates, I was frequently met with silence, so I took the initiative and moved forward with what I thought was best, while still trying to get feedback where possible.
+
+I did not mind doing all the work, as it was a fun project and I was learning a lot, but at times it was frustrating to feel like I was the only one who cared about the project. Further, it also felt a little selfish to do all the work, as I was not giving my teammates the opportunity to learn and grow. I tried to involve them in the process, but it was difficult to get them engaged and it would mainly be due to the fact that we were all busy with other courses.
+
+We also had married our second idea, and should've slightly modified this to make it more practical. The design was difficult to mount, and had to design an additional component to hold it in place. Although not a bad idea, it was a bit of a last-minute addition and the final design could have come out a bit more elegant.
+
+\subsection{What would you do differently?}
+
+I would prioritize establishing clearer communication and expectations within the team from the beginning. It would have been beneficial to have more input and collaboration across all team members, especially during critical stages of design.
+
+On the design side, I believe we could have iterated more instead of trying to force our second concept to work. For instance, we stuck with a design that was difficult to mount, when a small modification could have made it more practical. There were also oversights on my part, like forgetting to include a hole for the power switch and the charging cable. With more careful planning, the design could have been more compact and user-friendly. Still, these were valuable learning moments. But given this was a prototype and we were developing the minimum viable product, I think we did a good job of balancing the need for functionality with the constraints of time and resources.
+
+\subsection{Key takeaways and lessons learned}
+
+The main things I learned from this project were:
+\begin{itemize}
+    \item Fusion 360 and CAD software fundamentals
+    \item 3D printing and rapid prototyping
+    \item ESP32 communication protocols and embedded systems
+    \item Design for accessibility
+    \item Working in a team and presenting ideas effectively
+\end{itemize}
+
+Course topics that stood out as especially useful included:
+\begin{itemize}
+    \item Maintaining an engineering logbook
+    \item PCB design and layout
+    \item Monte Carlo simulations
+    \item Applying the engineering design process in practice
+    \item State charts, message sequence diagrams, UML diagrams, and other modeling techniques
+\end{itemize}
+
+Overall, I now feel much more confident in approaching open-ended design problems with a structured, iterative mindset. Meaning we were tasked to do the research, come up with our own ideas, and then present them to the class. Despite the challenges with group dynamics, the project was a rewarding experience and one of the most hands-on and impactful ones I've had in my degree so far.
+
+\subsection{Topics I wish we had more time to cover}
+
+Although an already packed course, I would have loved to learn more about PCB design, and some software development techniques used in industry. This can include version control, rigorous testing, development cycles like Agile, and other best practices.
+
+As for the PCB design, even though we had the designed the human interface device, I would have loved to see a more open-ended assignment. For example, we could have been given a set of requirements and constraints and then implement our own design. This would have allowed us to explore the design process in more depth and gain hands-on experience with PCB design software. As when doing the human interface device, David had done 90\% of the work in class and it would have been nice to be able to now apply those concepts to another project.
+
+
+\subsection{Lasting Impressions}
+
+This project stood out as one of the most applied and hands-on experiences in my degree so far. It was the first time we had to consider both the technical and human aspects of a design, especially in the context of accessibility. Working on something that had a clear and meaningful use case made the project more engaging and gave additional purpose to each stage of development.
+
+It also reinforced the value of feedback-driven iteration. Unlike most courses, we had opportunities to present our work, receive feedback, and integrate those suggestions into our design. This iterative process mirrored real-world engineering workflows more closely than other academic projects I've been part of.
+
+Lastly, this project highlighted areas for future growth, such as more effective team coordination and presenting skills. It was a useful reminder that strong technical execution needs to be matched with clear communication and planning. Overall, this experience will serve as a solid foundation for the future, whether in capstone, co-op, or engineering work beyond university.
+% --------------------------------------------------------------------------------
+% END BODY
+% --------------------------------------------------------------------------------
+
+\end{document}
